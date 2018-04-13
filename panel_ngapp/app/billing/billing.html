@@ -1,0 +1,52 @@
+<div class="container-fluid container-content">
+    <div class="row content-row">
+        <div class="col-xs-16 col-sm-16 col-md-16">
+            <form>
+                <ul class="list-group list-group-static list-group-paying">
+                    <li class="list-group-item">
+                        <h3>Тарифный план</h3>
+                        <div class="well" ng-hide="!bill">
+                            <p><span ng-show="period=='0'">Пробный период</span><span ng-hide="period=='0'">Лицензия</span> — <strong>с {{ bill.start | amDateFormat:'DD MMMM YYYY'}} до {{ bill.end | amDateFormat:'DD MMMM YYYY'}}, осталось {{days}} дней</strong>.</p>
+                            <p>Количество операторов: <strong>{{bill.operators}}</strong></p>
+                            <p>До окончания лицензии — <strong>{{days}}</strong> дней и <strong>{{hoursleft}}</strong> {{hourword}}.</p>
+                            <p>После окончания лицензии вы будете переведены на ограниченный тариф.</p>
+                        </div>
+                        <div class="well" ng-show="!bill">
+                            <p>Закончился оплаченный период</p>
+                        </div>
+                        <!--<div class="panel panel-default panel-parts">-->
+                        <!--<div class="panel-body">-->
+                        <!--<div class="panel-body-part">-->
+                        <!--<p><strong>Неоплаченный счет №111</strong></p>-->
+                        <!--<p>Лицензия на 12 месяцев на 1 оператора.</p>-->
+                        <!--</div>-->
+                        <!--<div class="panel-body-part text-right">-->
+                        <!--<button type="button" class="btn btn-default"><span>Удалить счет</span></button>-->
+                        <!--<button type="button" class="btn btn-add"><span>Оплатить</span></button>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </li>
+                    <li class="list-group-item">
+                        <p class="text">Функции доступные только в <strong>платной версии:</strong></p>
+                        <ul class="list-unstyled list-unstyled-icons">
+                            <li><i class="fa fa-eye" aria-hidden="true"></i> Наблюдение за печатью</li>
+                            <li><i class="fa fa-weixin" aria-hidden="true"></i> Автоматические действия, вовлечение в диалог</li>
+                            <li><i class="fa fa-info-circle" aria-hidden="true"></i> Информация о посетителе сайта</li>
+                            <li><i class="fa fa-hand-o-right" aria-hidden="true"></i>Перевод чата другому оператору</li>
+                            <li><i class="fa fa-address-book-o" aria-hidden="true"></i> Генератор лидов</li>
+                            <li><i class="fa fa-bar-chart" aria-hidden="true"></i> Оценка оператора</li>
+                            <li><i class="fa fa-mobile" aria-hidden="true"></i> Мобильное приложение</li>
+                            <li><i class="fa fa-floppy-o" aria-hidden="true"></i> Сохранение истории переписки</li>
+                            <li class="void"></li>
+                            <li class="void"></li>
+                        </ul>
+                    </li>
+                    <li class="list-group-item">
+                        <a ng-href="/billing/rebill" class="btn btn-add"><span class="rebill">Приобрести на следующий период</span></a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

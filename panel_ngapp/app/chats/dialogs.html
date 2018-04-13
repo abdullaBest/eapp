@@ -1,0 +1,207 @@
+<div class="container-fluid container-content" id="popovers">
+    <!--ng-show="chats.length > 0"-->
+    <div class="layer layer-center js-watch-height" ng-hide="chats.length > 0">
+        <div class="text-muted">
+            <div>Активных чатов нет. Начните чат в разделе <a class="link __static-btn" ng-href="/"><span
+                    class="ico __visitors-muted" aria-hidden="true"></span> Посетители</a></div>
+            <div class="wrap-no-chat-row">Если хотите посмотреть переписку, то перейдите в
+                <a ng-href="/journal">Журнал.</a></div>
+        </div>
+    </div>
+    <div class="row row-full-height" ng-show="chats.length > 0">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <ul class="list-group list-group-operators js-scroll-content" mh-scrollbar>
+                <li class="list-group-item" ng-class="{'active':activeChat.webuserid==chat.webuserid}"
+                    ng-click="selectChat(chat)" ng-repeat="chat in orderedChats">
+                    <div class="wrap wrap-operator-photo">
+                        <span class="wrap wrap-image wrap-size-50">
+                            <span class="letter letter-offline" ng-style="{ background: chat.color}">{{getWebuserName(chat
+                                .webuser.name, 'image')}}</span>
+                        </span>
+                        <span class="indicator"
+                              ng-class="{'indicator-online': chat.webuser.online, 'indicator-offline': !chat.webuser.online}"></span>
+                        <!--<span class="indicator " ng-show="!chat.webuser.online"></span>-->
+                    </div>
+                    <div class="wrap wrap-operator-info">
+                        <div class="wrap wrap-operator-info-row">
+                            <div class="text text-operator-name">
+                                {{chat.webuser.name?chat.webuser.name:getWebusername(chat)}}
+                            </div>
+                            <time class="time time-operator">
+                                <span ng-show="!isToday(chat.messages[chat.messages.length-1].time)">
+                                    {{chat.messages[chat.messages.length-1].time | date:'dd.MM.yyyy,'}}
+                                </span>
+                                <span>{{chat.messages[chat.messages.length-1].time | date:'H:mm'}}</span>
+                            </time>
+
+                        </div>
+                        <div class="wrap wrap-operator-info-row">
+                            <div class="text text-operator-action">
+                                <span ng-hide="chat.preview">{{chat.messages[chat.messages.length-1].text}}</span>
+                                <span ng-show="chat.preview">{{chat.webuser.name?chat.webuser.name:'Анонимус'}}
+                                    набирает сообщение <span class="ico __writing" aria-hidden="true"></span></span>
+                            </div>
+                            <span class="badge badge-warning badge-warning-operator" ng-hide="chat.unreaded==0">{{chat.unreaded}}</span>
+                        </div>
+                        <button type="button" class="btn btn-tool btn-popover" aria-label="Close" data-container="html"
+                                data-placement="top" data-trigger="hover" data-toggle="tooltip" title="Завершить диалог"
+                                ng-click="stopDialog(chat);$event.stopPropagation()"><span class="ico __tool-close"
+                                                                                           aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <div class="object-counter" aria-hidden="true" ng-show="invisible_unreaded > 0">
+                <div class="badge">{{invisible_unreaded}}</div>
+                <span class="object-counter-link"></span>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-wide" ng-show="activeChat">
+            <div class="chat js-watch-height">
+                <div class="chat__header">
+                    <div class="chat__header-person">
+                        <span class="indicator indicator-big"
+                              ng-class="{'indicator-online':activeChat.webuser.online,'indicator-offline':!activeChat.webuser.online}"></span>
+                        <span class="chat__name">{{activeChat.webuser.name?activeChat.webuser.name:getWebusername(activeChat)}}, {{activeChat.webuser.country}}, {{activeChat.webuser.city}}</span>
+                        <div class="text text-static">{{activeChat.webuser.online?'На сайте':'Покинул сайт в'}}
+                            <span ng-show="!activeChat.webuser.online">
+                                {{activeChat.webuser.exittime | date: 'HH:mm, dd.MM.yyyy'}}</span>
+                        </div>
+                    </div>
+                    <div class="chat__header-tools">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-tool dropdown-toggle btn-popover"
+                                    data-toggle="dropdown" id="dropdownTransferChat" aria-haspopup="true"
+                                    aria-expanded="false" aria-label="Close">
+                                <span data-container="body" data-placement="top"
+                                      data-trigger="hover"
+                                      data-toggle="tooltip" title="Передать чат" class="ico __tool-transfer-chat"
+                                      aria-hidden="true"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-chat-transfer"
+                                aria-labelledby="dropdownTransferChat">
+                                <li ng-show="onlineOperators.length" ng-repeat="operator in onlineOperators"
+                                    ng-if="operator._id !== currentUser._id">
+                                    <a href="#" ng-click="reroute(operator._id)"><span
+                                            class="indicator indicator-online"></span>
+                                        <span class="text text-operator-name">{{operator.name}}</span></a>
+                                </li>
+                                <li ng-show="!onlineOperators.length">
+                                    <div class="wrap wrap-dropdown-string">
+                                        <span class="text text-operator-action">Нет доступных операторов</span></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-tool btn-popover" aria-label="Close" data-container="body"
+                                data-placement="top"
+                                data-trigger="hover"
+                                data-toggle="tooltip" title="Заблокировать пользователя"
+                                ng-click="blockWebuser(activeChat)"><span class="ico __tool-block-user"
+                                                                          aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-tool btn-popover" aria-label="Close" data-container="body"
+                                data-placement="top" data-trigger="hover" data-toggle="tooltip" title="Завершить диалог"
+                                ng-click="stopDialog(activeChat)"><span class="ico __tool-close"
+                                                                        aria-hidden="true"></span></button>
+                    </div>
+                </div>
+                <div class="chat__body">
+                    <div class="rw-messages load-more">
+                        <div class="rw-messages__list js-scroll-content" data-chat-list="true" msg-scrollbar
+                             msg-scrollbar-chat="activeChat" style='overflow-y: scroll'>
+                            <div class="rw-messages__list-inner js-message-list"
+                                 style='position: relative; width:100%;transition: none;-webkit-transition:none;'>
+                                <div class="rw-messages__group m--message" ng-repeat="msg in activeChat.messages">
+                                    <div class="rw-messages__group m--date" ng-if="msg.show_date">
+                                        <time class="rw-messages__date" ng-show="!isToday(msg.time)">{{msg.time |
+                                            amDateFormat:'DD MMMM YYYY'}}
+                                        </time>
+                                        <time class="rw-messages__date" ng-show="isToday(msg.time)">Сегодня</time>
+                                    </div>
+                                    <div class="rw-messages__group m--new-message" ng-if="msg.type===1 && msg.new_msg">
+                                        <div class="rw-messages__group-title m--new-message">Новые сообщения</div>
+                                    </div>
+                                    <div class="rw-messages__message rw-message m--operator" ng-if="msg.system">
+                                        <div class="rw-message__content">
+                                            <div class="rw-message__row m--status">
+                                                {{msg.text}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="rw-messages__message m--operator rw-message" ng-if="!msg.system">
+                                        <div class="rw-message__avatar">
+                                            <img ng-show="msg.type==2" class="rw-message__avatar-image"
+                                                 ng-src="{{currentUser.image}}" width="35" alt="{{currentUser.name}}"/>
+                                        </div>
+                                        <div class="rw-message__content">
+                                            <div class="rw-message__title">
+                                                <div class="rw-message__name">
+                                                    {{msg.type==1?getWebuserName(activeChat.webuser.name,'chat'):getOperatorName(msg.from)}}
+                                                </div>
+                                                <div class="rw-message__time">{{msg.time | date:'H:mm'}}</div>
+                                            </div>
+                                            <div class="rw-message__row">
+                                                <!--<span ng-if="msg.url" ng-repeat="text in msg.url">-->
+                                                            <!--<a ng-href="{{text.text}}" ng-if="text.isMatch"-->
+                                                               <!--target="_blank">{{text.text}}</a>-->
+                                                            <!--<span ng-if="!text.isMatch">{{text.text}}</span>-->
+                                                <!--</span>-->
+                                                <!--<span ng-if="!msg.url" ng-bind-html="msg.text | linky"></span>-->
+                                                <span ng-bind-html="msg.text | linky:'_blank'"></span>
+                                            </div>
+                                            <div class="rw-message__status m--read" ng-if="msg.type==2">Сообщение
+                                                {{msg.readed?'прочитано':'непрочитано'}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rw-messages__group m--message"
+                                     ng-show="activeChat.preview!='' && activeChat.webuser.online">
+                                    <div class="rw-messages__message rw-message m--user">
+                                        <div class="rw-message__avatar"></div>
+                                        <div class="rw-message__content">
+                                            <div class="rw-message__title">
+                                                <div class="rw-message__name m--user">Посетитель</div>
+                                                <div class="rw-message__time">{{Date.now() | date:'H:mm'}}</div>
+                                            </div>
+                                            <div class="rw-message__row">{{activeChat.preview}}<span
+                                                    class="ico m--pencil write m--animate"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat__footer js-chat-footer" ng-class="{__active: focused}">
+                    <form>
+                        <div class="chat__form-textarea-wrap js-chat-textarea-wrap">
+                            <div class="chat__form-textarea-wrap-scroll">
+                                <textarea
+                                    id="newMessage"
+                                    name="newMessage"
+                                    class="chat__form-textarea js-chat-textarea"
+                                    ng-init="focused = false"
+                                    ng-focus="focused = true"
+                                    ng-blur="focused = false"
+                                    placeholder="Введите ваше сообщение"
+                                    ng-model="newMessage"
+                                    ng-keypress="keypress($event)"
+                                    autofocus
+                                    msd-elastic
+                                ></textarea>
+                            </div>
+                        </div>
+                        <div class="chat__form-action">
+                            <label class="btn btn-file" for="chat-file">
+                                <input class="chat__file" type="file" id="chat-file"/>
+                            </label>
+                            <button class="btn btn-smile" type="button"></button>
+                            <button class="btn btn-send-message" type="button" ng-click="sendMessage()"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <webuserinfo ng-show="showUserInfo && activeChat" webuser="activeChat.webuser"></webuserinfo>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+<div class="col-xs-6 col-sm-6 col-md-6 col-wide-left right-block">
+    <!-- pages map -->
+    <div id="user-map-list" class="overinfo theme-dark" click-outside="hidePagesMap()" outside-if-not="pages-map-btn">
+        <button type="button" class="overinfo-close" data-action="close" title="Закрыть"
+                ng-click="hidePagesMap()"></button>
+        <div class="overinfo-header">Карта переходов по сайту</div>
+        <div class="overinfo-body">
+            <ul class="list list-linkmap">
+                <li ng-class="{intro: $index == 0}"
+                    ng-repeat="page in webuser.pages_map track by $index">
+                    <span class="wrap wrap-overinfo">
+                        <span class="left-part"><a ng-href="{{page.url}}" target="_blank">{{page.title}}</a></span>
+                        <span class="right-part">{{parseTime(page.time)}}</span>
+                    </span>
+                </li>
+                <li class="outro">
+                     <span class="wrap wrap-overinfo">
+                        <span class="left-part">
+                            <a ng-href="{{webuser.url}}" target="_blank">{{webuser.title}}</a>
+                        </span>
+                        <span class="right-part">{{getTimePage(webuser.page_time)}}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--/////////////////////-->
+    <ul class="list-group list-group-user-info js-scroll-content js-watch-height" mh-scrollbar>
+        <li class="list-group-item">
+            <div class="wrap wrap-user-info"
+                 ng-class="{'wrap-flex-space-between, wrap-flex-align-start': getPaymentInfo().isFreeMode}">
+                <div class="text text-user-info-title">Провел на сайте:</div>
+                <div class="text text-user-info-value" ng-show="!getPaymentInfo().isFreeMode">
+                    {{getSiteTime(webuser._id)}}
+                </div>
+                <div class="wrap-operator-paid-info__value" ng-hide="!getPaymentInfo().isFreeMode">
+                    <span class="wrap-operator-paid-info__value-separator" aria-hidden="true"></span>
+                    <a ng-href="/billing" ng-click="hideTooltip()" class="wrap-operator-paid-info__value-hidden"
+                       data-container="body" data-toggle="tooltip" data-placement="top" data-trigger="hover"
+                       data-original-title="Информация ограничена. Активируйте полную версию."></a>
+                </div>
+            </div>
+            <div class="wrap wrap-user-info">
+                <div class="text text-user-info-title">Просматривается страница: </div>
+                <div class="text text-user-info-value-wide">
+                    <a class="link __user-visited-site" ng-href="{{webuser.url}}" target="_blank" data-container="body"
+                       data-placement="top" data-trigger="hover" data-toggle="tooltip"
+                       data-original-title="{{webuser.title?webuser.title:webuser.url}}">{{webuser.title?webuser.title:webuser.url}}</a>{{getTimePage(webuser.page_time)}}
+                </div>
+            </div>
+            <div class="wrap wrap-user-info wrap-flex-start">
+                <div class="text text-user-info-title">Просмотрено страниц:</div>
+                <div class="text text-user-info-value">{{webuser.pages_serf}}</div>
+                <div id="pages-map-btn" class="badge badge-simple-yellow"
+                     ng-show="webuser.pages_serf > 1 || !webuser.online" ng-click="showPagesMap()">Все
+                </div>
+            </div>
+
+        </li>
+
+        <li class="list-group-item">
+            <div class="wrap wrap-user-info"
+                 ng-class="{'wrap-flex-space-between, wrap-flex-align-start': getPaymentInfo().isFreeMode}"
+                 ng-if="webuser.returns > 0">
+                <div class="text text-user-info-title">Сколько раз возвращался:</div>
+                <div class="text text-user-info-value" ng-show="!getPaymentInfo().isFreeMode">{{webuser.returns}}</div>
+                <div class="wrap-operator-paid-info__value" ng-hide="!getPaymentInfo().isFreeMode">
+                    <span class="wrap-operator-paid-info__value-separator" aria-hidden="true"></span>
+                    <a ng-href="/billing" ng-click="hideTooltip()" class="wrap-operator-paid-info__value-hidden"
+                       data-container="body" data-toggle="tooltip" data-placement="top" data-trigger="hover"
+                       data-original-title="Информация ограничена. Активируйте полную версию."></a>
+                </div>
+            </div>
+            <div class="wrap wrap-user-info"
+                 ng-class="{'wrap-flex-space-between, wrap-flex-align-start': getPaymentInfo().isFreeMode}">
+                <div class="text text-user-info-title">Переходов внутри сайта:</div>
+                <div class="text text-user-info-value" ng-show="!getPaymentInfo().isFreeMode">{{webuser.pages}}</div>
+                <div class="wrap-operator-paid-info__value" ng-hide="!getPaymentInfo().isFreeMode">
+                    <span class="wrap-operator-paid-info__value-separator" aria-hidden="true"></span>
+                    <a ng-href="/billing" ng-click="hideTooltip()" class="wrap-operator-paid-info__value-hidden"
+                       data-container="body" data-toggle="tooltip" data-placement="top" data-trigger="hover"
+                       data-original-title="Информация ограничена. Активируйте полную версию."></a>
+                </div>
+            </div>
+            <div class="wrap wrap-user-info"
+                 ng-class="{'wrap-flex-space-between, wrap-flex-align-start': getPaymentInfo().isFreeMode}">
+                <div class="text text-user-info-title">Было чатов:</div>
+                <div class="text text-user-info-value"
+                     ng-show="!getPaymentInfo().isFreeMode">{{webuser.completedchats}}</div>
+                <div class="wrap-operator-paid-info__value" ng-hide="!getPaymentInfo().isFreeMode">
+                    <span class="wrap-operator-paid-info__value-separator" aria-hidden="true"></span>
+                    <a ng-href="/billing" ng-click="hideTooltip()" class="wrap-operator-paid-info__value-hidden"
+                       data-container="body" data-toggle="tooltip" data-placement="top" data-trigger="hover"
+                       data-original-title="Информация ограничена. Активируйте полную версию."></a>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="wrap wrap-user-info">
+                <div class="text text-user-info-title">Откуда пришел:</div>
+                <div class="text text-user-info-value-wide"
+                     ng-if="!webuser.referrer && !webuser.searchengine && !webuser.socialnetwork">Прямой вход</div>
+                <div class="text text-user-info-value-wide"
+                     ng-if="!webuser.searchengine && !webuser.socialnetwork && webuser.referrer">
+                    <a ng-href="{{webuser.referrer}}" target="_blank">{{webuser.referrer}}</a>
+                </div>
+                <div class="text text-user-info-value-wide"
+                     ng-if="webuser.searchengine">
+                    <a ng-href="{{webuser.searchengine}}" target="_blank">{{webuser.searchengine}}</a>
+                </div>
+                <div class="text text-user-info-value-wide"
+                     ng-if="!webuser.searchengine && webuser.socialnetwork && !webuser.referrer">
+                    <a ng-href="{{webuser.socialnetwork}}" target="_blank">{{webuser.socialnetwork}}</a>
+                </div>
+            </div>
+
+            <div class="wrap wrap-user-info" ng-if="webuser.searchengine && webuser.searchquery">
+                <div class="text text-user-info-title">Ключевые слова:</div>
+                <div class="text text-user-info-value-wide">{{webuser.searchquery}}</div>
+            </div>
+        </li>
+        <li class="list-group-item" ng-show="webuser.email || webuser.phone">
+            <div class="wrap wrap-user-info" ng-if="webuser.email">
+                <div class="text text-user-info-value"><span class="ico __mail" aria-hidden="true"></span>{{webuser.email}}
+                </div>
+            </div>
+            <div class="wrap wrap-user-info" ng-if="webuser.phone">
+                <div class="text text-user-info-value">
+                    <span class="fa fa-phone" aria-hidden="true"></span> Тел.: {{webuser.phone}}
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item">
+
+            <div class="wrap wrap-user-info">
+                <div class="text text-user-info-value">
+                    <span class="ico __location" aria-hidden="true"></span> <span>{{webuser.country}}</span><span ng-if="webuser.city">, {{webuser.city}}</span>
+                </div>
+            </div>
+            <div class="wrap wrap-user-map" ng-hide="loading">
+                <ya-map ya-behaviors="-default" class="map" ya-zoom="5" ya-center="{{center}}" ya-controls="">
+                    <ya-geo-object ng-if="geoObject" ya-source="geoObject"></ya-geo-object>
+                </ya-map>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="wrap wrap-user-info">
+                <div class="text text-user-info-title">IP-адрес:</div>
+                <div class="text text-user-info-value">{{webuser.ip}}</div>
+            </div>
+            <div class="wrap wrap-user-info" ng-if="webuser.os || webuser.browser">
+                <div class="text text-user-info-title">Использует:</div>
+                <div class="text text-user-info-value"><span>{{webuser.os.name}}</span><span>, {{webuser.os.version}}</span><span>, {{webuser.browser.name}}</span><span>, {{webuser.browser.version}}</span>
+                </div>
+            </div>
+            <div class="wrap wrap-user-info" ng-show="webuser.provider">
+                <div class="text text-user-info-title">Провайдер:</div>
+                <div class="text text-user-info-value">{{webuser.provider}}</div>
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+
+

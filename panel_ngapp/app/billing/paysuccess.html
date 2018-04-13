@@ -1,0 +1,52 @@
+<!--<section class="block-box clearfix">-->
+    <!--<div class="block b-size-12 block-info">-->
+        <!--<div class="b-panel-header">-->
+            <!--<ul class="b-info-nav">-->
+                <!--<li class="info-nav-item"><a href="/billing/tarif">Выберите свой тариф</a></li>-->
+                <!--<li class="info-nav-item active"><a href="#">Выбор метода оплаты</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="block__content clearfix">-->
+            <!--<div class="b-info-panel">-->
+
+                <!--<h1 class="page__title">Счет <span class="payment-num">№{{num}}</span> на сумму <span class="total-sum">{{summ}} <i class="fa fa-rub"></i></span> успешно оплачен!</h1>-->
+            <!--</div>-->
+
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
+
+<div class="container-fluid container-content">
+    <div class="row">
+        <div class="col-xs-16 col-sm-16 col-md-16">
+            <form>
+                <ul class="list-group list-group-static list-group-paying">
+                    <li class="list-group-item">
+                        <h3>Результат</h3>
+                        <div class="well well-single">
+                            <p>Ваш заказ: <strong>оплачен</strong></p>
+                            <p class="text text-middle">{{billInfo.billsum}} рублей</p>
+                            <div class="text text-gray">{{bill.paytime | date:'dd.MM.yyyy'}} в
+                                {{bill.paytime | date: 'HH:mm'}}</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="wrap wrap-payment-success">
+                            <div class="text text-gray text-middle">Лицензия оплачена с
+                                {{bill.start | date: 'dd.MM.yyyy'}} по {{bill.end | date: 'dd.MM.yyyy'}}
+                            </div>
+                            <div class="text text-small">Информация о платеже отправлена на ваш адрес эл. почты</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <p><strong>Детали платежа</strong></p>
+                        <p class="text text-static">Номер транзакции<br/>
+                            {{bill.numb}}</p>
+                        <!--<div class="text text-static">Платеж совершен с IP-адреса<br/>-->
+                            <!--5.149.214.226</div>-->
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

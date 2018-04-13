@@ -1,0 +1,235 @@
+<div class="container-fluid container-content">
+    <div class="row">
+        <dmenu path="app.reports_"></dmenu>
+        <div class="col-xs-20 col-sm-20 col-md-20 col-wide-left">
+            <div class="page-header">
+                <h1 class="h1">Отчет:работа операторов</h1>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-24 col-sm-24 col-md-24">
+                    <ul class="list-group list-group-static">
+                        <li class="list-group-item">
+                            <form>
+                                <div class="form-group-operator wrap-flex-align-center form-group-log form-group-no-offset">
+                                    <div select select-label="" class="select-size-220" select-options="periodSelectList" ng-model="period"></div>
+                                    <div select select-label="" class="select-size-220"
+                                         select-options="operatorsSelectList" ng-model="operator"></div>
+                                </div>
+                            </form>
+                        </li>
+
+                        <!-- FOR TODAY PERIOD-->
+                        <li class="list-group-item" ng-if="period=='today'">
+                            <div class="wrap-flex-space-between">
+                                <strong>Сегодня</strong>
+                                <div class="wrap wrap-textures wrap-flex-align-center">
+                                    <div class="text text-small">Меньше</div>
+                                    <div class="wrap wrap-flex-align-center wrap-flex-space-around">
+                                        <div class="layer layer-day-mark layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-1 layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-2 layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-3 layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-4 layer-small"></div>
+                                    </div>
+                                    <div class="text text-small">Больше</div>
+                                </div>
+                            </div>
+                            <div class="wrap wrap-flex-space-between wrap-flex-align-center">
+                                <div class="wrap wrap-operator-work-day"
+                                     ng-repeat="hour in day track by $index">
+                                    {{$index}}
+                                </div>
+                            </div>
+                            <ul class="list list-unstyled-enum">
+                                <li
+                                    ng-repeat="(operatorid, stats) in operatorsStats">
+                                    <div class="wrap wrap-flex-space-between wrap-flex-align-center">
+                                        <div class="wrap wrap-flex-space-between wrap-flex-align-center"
+                                        >
+                                            <div class="wrap wrap-operator-photo">
+                                                <span class="indicator "
+                                                      ng-class="{'indicator-online': operators[operatorid].online, 'indicator-offline': !operators[operatorid].online}"></span>
+                                            </div>
+                                            <strong class="text text-small text-offset-left-15">{{operators[operatorid].name}}</strong>
+                                        </div>
+                                        <!--<span class="js-time-period">{{today}}</span>-->
+
+                                    </div>
+                                    <div class="wrap wrap-flex-space-between wrap-flex-align-center wrap-work-levels">
+                                        <div class="wrap wrap-operator-work-day"
+                                             ng-repeat="hourStat in stats track by $index">
+                                            <div data-container="body"
+                                                 data-toggle="tooltip"
+                                                 data-placement="top" data-trigger="hover"
+                                                 data-original-title="{{$index}}:00:00 - {{$index + 1}}:00:00, {{parseTime(hourStat)}}"
+                                                 class="layer layer-day-mark layer-level-{{Math.ceil(hourStat/900000)}}"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- FOR WEEK PERIOD-->
+                        <li class="list-group-item" ng-if="period=='week'">
+                            <div class="wrap-flex-space-between">
+                                <div class="wrap">
+                                    <strong>Неделя</strong>
+                                    <time>{{startDate|amDateFormat:'DD.MM.YYYY'}} – {{endDate|amDateFormat:'DD.MM.YYYY'}}</time>
+                                </div>
+                                <div class="wrap wrap-textures wrap-flex-align-center">
+                                    <div class="text text-small">Меньше</div>
+                                    <div class="wrap wrap-flex-align-center wrap-flex-space-around">
+                                        <div class="layer layer-day-mark layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-1 layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-2 layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-3 layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-4 layer-small"></div>
+                                    </div>
+                                    <div class="text text-small">Больше</div>
+                                </div>
+                            </div>
+                            <div class="wrap wrap-flex-space-between wrap-flex-align-center">
+                                <div class="wrap wrap-operator-work-week" ng-repeat="day in periodDays"><span
+                                        class="day-name">{{day.day}}</span>
+                                    <time>{{day.date|amDateFormat:'DD.MM.YYYY'}}</time>
+                                </div>
+                            </div>
+                            <ul class="list list-unstyled-enum">
+                                <li ng-repeat="(operatorid, stats) in operatorsStats">
+                                    <div class="wrap wrap-flex-space-between wrap-flex-align-center">
+                                        <div class="wrap wrap-flex-space-between wrap-flex-align-center">
+                                            <span class="indicator"
+                                                  ng-class="{'indicator-online': operators[operatorid].online, 'indicator-offline': !operators[operatorid].online}"></span>
+                                            <strong class="text text-small text-offset-left-10">
+                                                {{operators[operatorid].name}}</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="wrap wrap-flex-space-between wrap-flex-align-center">
+                                        <div class="wrap wrap-full-day" ng-repeat="day in weekDays">
+                                            <div class="wrap wrap-day-hours wrap-flex-space-between"
+                                                 ng-init="wd=$index">
+                                                <div
+                                                        class="layer layer-day-mark layer-little layer-level-{{Math.ceil(stats[wd][hindx]/900000)}}"
+                                                        data-container="body"
+                                                        data-toggle="tooltip"
+                                                        data-placement="top" data-trigger="hover"
+                                                        data-original-title="{{hindx}}:00:00 - {{hindx + 1}}:00:00, {{parseTime(stats[wd][hindx])}}"
+                                                        ng-repeat="hindx in [0, 1, 2, 3]"></div>
+                                            </div>
+                                            <div class="wrap wrap-day-hours wrap-flex-space-between">
+                                                <div
+                                                        class="layer layer-day-mark layer-little layer-level-{{Math.ceil(stats[wd][hindx+4]/900000)}}"
+                                                        data-container="body"
+                                                        data-toggle="tooltip"
+                                                        data-placement="top" data-trigger="hover"
+                                                        data-original-title="{{hindx + 4}}:00:00 - {{hindx + 4 + 1}}:00:00, {{parseTime(stats[wd][hindx+4])}}"
+                                                        ng-repeat="hindx in [0, 1, 2, 3]"></div>
+                                            </div>
+                                            <div class="wrap wrap-day-hours wrap-flex-space-between">
+                                                <div
+                                                        class="layer layer-day-mark layer-little layer-level-{{Math.ceil(stats[wd][hindx+8]/900000)}}"
+                                                        data-container="body"
+                                                        data-toggle="tooltip"
+                                                        data-placement="top" data-trigger="hover"
+                                                        data-original-title="{{hindx + 8}}:00:00 - {{hindx + 8 + 1}}:00:00, {{parseTime(stats[wd][hindx+8])}}"
+                                                        ng-repeat="hindx in [0, 1, 2, 3]"></div>
+                                            </div>
+                                            <div class="wrap wrap-day-hours wrap-flex-space-between">
+                                                <div
+                                                        class="layer layer-day-mark layer-little layer-level-{{Math.ceil(stats[wd][hindx+12]/900000)}}"
+                                                        data-container="body"
+                                                        data-toggle="tooltip"
+                                                        data-placement="top" data-trigger="hover"
+                                                        data-original-title="{{hindx + 12}}:00:00 - {{hindx + 12 + 1}}:00:00, {{parseTime(stats[wd][hindx+12])}}"
+                                                        ng-repeat="hindx in [0, 1, 2, 3]"></div>
+                                            </div>
+                                            <div class="wrap wrap-day-hours wrap-flex-space-between">
+                                                <div
+                                                        class="layer layer-day-mark layer-little layer-level-{{Math.ceil(stats[wd][hindx+16]/900000)}}"
+                                                        data-container="body"
+                                                        data-toggle="tooltip"
+                                                        data-placement="top" data-trigger="hover"
+                                                        data-original-title="{{hindx + 16}}:00:00 - {{hindx + 16 + 1}}:00:00, {{parseTime(stats[wd][hindx+16])}}"
+                                                        ng-repeat="hindx in [0, 1, 2, 3]"></div>
+                                            </div>
+                                            <div class="wrap wrap-day-hours wrap-flex-space-between">
+                                                <div
+                                                        class="layer layer-day-mark layer-little layer-level-{{Math.ceil(stats[wd][hindx+20]/900000)}}"
+                                                        data-container="body"
+                                                        data-toggle="tooltip"
+                                                        data-placement="top" data-trigger="hover"
+                                                        data-original-title="{{hindx + 20}}:00:00 - {{hindx + 20 + 1}}:00:00, {{parseTime(stats[wd][hindx+20])}}"
+                                                        ng-repeat="hindx in [0, 1, 2, 3]"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <!--FOR YEAR PERIOD-->
+                        <li class="list-group-item" ng-if="period=='year'">
+                            <div class="wrap-flex-space-between">
+                                <div class="wrap">
+                                    <strong>Год</strong>
+                                    <time>{{startDate|amDateFormat:'DD.MM.YYYY'}} –
+                                        {{endDate|amDateFormat:'DD.MM.YYYY'}}
+                                    </time>
+                                </div>
+                                <div class="wrap wrap-textures wrap-flex-align-center">
+                                    <div class="text text-small">Меньше</div>
+                                    <div class="wrap wrap-flex-align-center wrap-flex-space-around">
+                                        <div class="layer layer-day-mark layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-1 layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-2 layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-3 layer-small"></div>
+                                        <div class="layer layer-day-mark layer-level-4 layer-small"></div>
+                                    </div>
+                                    <div class="text text-small">Больше</div>
+                                </div>
+                            </div>
+                            <ul class="list list-unstyled-enum list-offset-top">
+                                <li ng-repeat="(operatorid, stats) in operatorsStats">
+                                    <div class="wrap wrap-flex-space-between wrap-flex-align-center">
+                                        <div class="wrap wrap-flex-space-between wrap-flex-align-center">
+                                            <span class="indicator"
+                                                  ng-class="{'indicator-online': operators[operatorid].online, 'indicator-offline': !operators[operatorid].online}"></span>
+                                            <strong class="text text-small text-offset-left-10">
+                                                {{operators[operatorid].name}}</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="wrap wrap-flex-space-between wrap-flex-align-center">
+
+                                        <div class="wrap wrap-full-month" ng-repeat="month in calendar"
+                                             ng-init="m=$index">
+                                            <div class="wrap wrap-operator-work-week">{{monthsName[m]}}</div>
+                                            <div class="wrap wrap-day-hours wrap-flex-space-between wrap-flex-direction"
+                                                 ng-init="mindx=$index" ng-repeat="week in month">
+                                                <div data-container="body"
+                                                     data-toggle="tooltip"
+                                                     data-placement="top" data-trigger="hover"
+                                                     data-original-title="{{day.day}} {{monthsDate[m]}}, {{parseTime(stats[m][day.day])}}"
+                                                     class="layer layer-day-mark {{day.class}} layer-level-{{Math.ceil(stats[m][day.day]/21600000)}}"
+                                                     ng-repeat="day in week"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<div class="page__auth">
+  <header class="header header-auth">
+    <div class="container-fluid-auth">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <a ng-href="/login" class="link __block" tabindex="-1"><img src="https://my.regidium.com/assets/i/regidium_logo.svg" alt="Regidium" width="180" height="45"/></a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <a tabindex="-1" ng-href="/signup" class="btn btn-add btn-float-right"><span>Регистрация</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="content-auth">
+    <div class="container-fluid-auth">
+      <div class="row">
+        <div class="col-xs-24 col-sm-24 col-md-24">
+          <div class="page-header page-header-auth">
+            <h1 class="h1">Войти</h1>
+            <div class="page-header-text">в панель управления</div>
+          </div>
+
+          <form class="js-custom-validate" name="form" submitted="submitted" ng-submit="login(form)">
+            <ul class="list-group list-group-static list-group-auth">
+              <li class="list-group-item">
+                <div class="form-group form-group-auth"
+                     ng-class="{'form-group-error': errors.type==0 || form.email.$error.required  && submitted || (!form.email.$$rawModelValue.length && form.email.$dirty) }">
+                  <input
+                    class="form-control email"
+                    placeholder="Введите эл. почту"
+                    onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Введите эл. почту'"
+                    type="email"
+                    name="email"
+                    data-placement="right"
+                    data-original-title='Введите электронную почту'
+                    data-trigger="focus"
+                    data-toggle="tooltip"
+                    data-required="1"
+                    ng-model="user.email"
+                  />
+                </div>
+                <div class="form-group form-group-auth"
+                     ng-class="{'form-group-error': errors.type == 1 || form.password.$error.required && submitted || (!form.password.$$rawModelValue.length && form.password.$dirty) }">
+                  <input
+                    class="form-control password"
+                    placeholder="Введите пароль"
+                    onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Введите пароль'"
+                    name="password"
+                    type="password"
+                    data-toggle="tooltip"
+                    data-trigger="focus"
+                    data-placement="right"
+                    data-original-title='Введите пароль'
+                    data-required="1"
+                    ng-model="user.password"
+                  />
+                </div>
+                <div class="form-group form-group-auth">
+                  <div class="text text-row">
+                    <div class="switch switch-no-margin-left" id="remember-widget-switch">
+                      <input tabindex="-1" id="remember" class="switch-input" type="checkbox"
+                             ng-model="user.remember">
+                      <label for="remember" class="switch-label"></label>
+                    </div>
+                    <span data-toggle="switch" data-target="remember-widget-switch">Запомнить на 14 дней</span>
+                  </div>
+                </div>
+                <div class="form-group form-group-no-offset">
+                  <div class="wrap wrap-flex-align-center wrap-flex-space-between wrap-form-submit">
+                    <button tabindex="-1" type="submit" class="btn btn-add"><span>Войти</span></button>
+                    <a tabindex="-1" ng-href="/remind" class="btn btn-default"><span>Забыли пароль</span></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </form>
+          <div class="error-notification" ng-show="submitted && errors.other">
+            <p class="error-text">{{ errors.other }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer footer-auth">
+    <div class="container-fluid-auth">
+      <div class="row">
+        <div class="col-xs-24 col-sm-24 col-md-24">
+          <div class="text-center">© {{year}} Regidium, LLC</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+<!--warning-->
+  <div class="notification-modal" data-toggle="notification-modal" data-actions="show close">
+    <span class="notification-modal__ico ico __login-warning" aria-hidden="true"></span>
+    <div class="notification-modal__inner">
+      <h5 class="notification-modal__title">Кто-то вошел под вашими учетными данными. </h5>
+      <div class="notification-modal__content">Если необходимо одновременно работать нескольким операторам, добавьте операторов в панели управления.</div>
+    </div>
+  </div>
+</div>

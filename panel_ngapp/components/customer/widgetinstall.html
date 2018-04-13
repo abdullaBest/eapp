@@ -1,0 +1,176 @@
+<form class="modal fade modal-entrance" id="installCodeModal" tabindex="-1" role="dialog" ng-controller="WinstallCtrl">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Установите код на ваш сайт</h4>
+            </div>
+            <div class="modal-body">
+                <span class="ico __entransce-step-1" aria-hidden="true"></span>
+                <p>Для того, чтобы принимать обращения клиентов с сайта, вам необходимо установить следующий код на
+                    каждую страницу вашего сайта перед закрывающимся тегом
+                    &lt;&#47;body&gt;</p>
+                <div class="install-code">
+                    <div class="install-code__source js-scroll-content" mh-scrollbar>
+                        <code class="prettyprint prettyprinted" id="source-code"><span class="pln">&nbsp;</span><span
+                                class="com">&lt;!-- Regidium --&gt;</span><span class="pln"> </span><br><span
+                                class="pln">&nbsp;&nbsp;</span><span
+                                class="tag">&lt;script</span><span>&nbsp;</span><span class="atn">type</span><span>&nbsp;</span><span
+                                class="pun">=</span><span>&nbsp;</span><span
+                                class="atv">"text/javascript"</span><span class="tag">&gt;</span><span
+                                class="pln"></span><br><span class="pln">&nbsp;&nbsp;</span><span
+                                class="kwd">var</span><span class="pln">&nbsp;</span><span
+                                class="typ">RegidiumKey</span><span class="pln">&nbsp;</span><span
+                                class="pun">=</span><span
+                                class="pln">&nbsp;</span><span class="str">"{{key}}"</span><span
+                                class="pun">;</span><span
+                                class="pln"></span><br><span class="pln">&nbsp;&nbsp;</span><span
+                                class="kwd">var</span><span>&nbsp;</span><span
+                                class="pln">el</span><span>&nbsp;</span><span
+                                class="pun">=</span><span>&nbsp;</span><span class="pln">window</span><span class="pun">.</span><span
+                                class="pln">document</span><span class="pun">.</span><span
+                                class="pln">createElement</span><span class="pun">(</span><span
+                                class="str">"script"</span><span class="pun">);</span><span
+                                class="pln"> </span><br><span class="pln">&nbsp;&nbsp;el</span><span
+                                class="pun">.</span><span class="pln">type</span><span>&nbsp;</span><span
+                                class="pun">=</span><span
+                                class="pln">&nbsp;</span><span class="str">"text/javascript"</span><span
+                                class="pun">;</span><span
+                                class="pln"> </span><br><span class="pln"> &nbsp;&nbsp;el</span><span
+                                class="pun">.</span><span class="pln">charset</span><span>&nbsp;</span><span
+                                class="pun">=</span><span
+                                class="pln">&nbsp;</span><span class="str">"utf-8"</span><span class="pun">;</span><span
+                                class="pln"> </span><br><span class="pln"> &nbsp;&nbsp;el</span><span
+                                class="pun">.</span><span class="pln">src</span><span>&nbsp;</span><span
+                                class="pun">=</span><span
+                                class="pln">&nbsp;</span><span
+                                class="str">"https://static.regidium.com/widget.js"</span><span
+                                class="pun">;</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;el</span><span class="pun">.</span><span
+                                class="pln">async</span><span>&nbsp;</span><span class="pun">=</span><span class="pln">&nbsp;</span><span
+                                class="kwd">true</span><span class="pun">;</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;el</span><span class="pun">.</span><span
+                                class="pln">isLoaded</span><span>&nbsp;</span><span class="pun">=</span><span
+                                class="pln">&nbsp;</span><span
+                                class="kwd">false</span><span class="pun">;</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;el</span><span class="pun">.</span><span
+                                class="pln">onload</span><span>&nbsp;</span><span
+                                class="pun">=</span><span>&nbsp;</span><span class="pln">el</span><span
+                                class="pun">.</span><span class="pln">onreadystatechange</span><span>&nbsp;</span><span
+                                class="pun">=</span><span class="pln">&nbsp;</span><span
+                                class="kwd">function</span><span
+                                class="pun">()</span><span class="pln">&nbsp;</span><span class="pun">{</span><span
+                                class="pln"> </span><br><span class="pln"> &nbsp;&nbsp;</span><span
+                                class="kwd">if</span><span class="pln">&nbsp;</span><span class="pun">((</span><span
+                                class="pln">el</span><span class="pun">.</span><span class="pln">readyState</span><span>&nbsp;</span><span
+                                class="pun">&amp;&amp;</span><span>&nbsp;</span><span class="pln">el</span><span
+                                class="pun">.</span><span
+                                class="pln">readyState</span><span>&nbsp;</span><span class="pun">!=</span><span
+                                class="pln">&nbsp;</span><span
+                                class="str">"complete"</span><span class="pln">&nbsp;</span><span
+                                class="pun">&amp;&amp;</span><span>&nbsp;&nbsp;</span><span class="pln"> el</span><span
+                                class="pun">.</span><span
+                                class="pln">readyState</span><span>&nbsp;</span><span class="pun">!=</span><span
+                                class="pln">&nbsp;</span><span
+                                class="str">"loaded"</span><span class="pun">)</span><span
+                                class="pln">&nbsp;</span><span
+                                class="pun">||</span><span>&nbsp;</span><span class="pln">el</span><span
+                                class="pun">.</span><span
+                                class="pln">isLoaded</span><span class="pun">)</span><span
+                                class="pln">&nbsp;</span><span
+                                class="kwd">return</span><span class="pun">;</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;el</span><span class="pun">.</span><span
+                                class="pln">isLoaded</span><span>&nbsp;</span><span class="pun">=</span><span
+                                class="pln">&nbsp;</span><span
+                                class="kwd">true</span><span class="pun">;</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;</span><span class="pun">};</span><span
+                                class="pln"> </span><br><span class="pln"> &nbsp;&nbsp;window</span><span
+                                class="pun">.</span><span class="pln">document</span><span class="pun">.</span><span
+                                class="pln">getElementsByTagName</span><span class="pun">(</span><span class="str">"head"</span><span
+                                class="pun">)[</span><span class="lit">0</span><span class="pun">].</span><span
+                                class="pln">appendChild</span><span class="pun">(</span><span class="pln">el</span><span
+                                class="pun">);</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;</span><span class="tag">&lt;/script&gt;</span><span
+                                class="pln"> </span><br><span class="pln"> </span><span class="com">&lt;!-- Regidium --&gt;</span><span
+                                class="pln"> </span><br><span class="pln"> </span>
+                        </code>
+                        <div class="clipboard-info" ng-class="{off: !copyCode}">Код скопирован в буфер</div>
+                    </div>
+                    <div class="install-code__actions">
+                        <button type="button" class="btn btn-default-lg js-clipboard-btn" clip-copy="code"
+                                clip-click-fallback="fallback(code)" ng-click="copyCode=true">
+                            <span>Скопировать код</span></button>
+
+                        <div class="inline-send-form js-inline-send-form">
+                            <a class="btn btn-default-lg" data-type="start_button"
+                               ng-hide="showSendForm || codeSendedToWebmaster" ng-click="showSendForm=true"><span>Отправить вебмастеру</span></a>
+                            <div class="inline-send-form__form" ng-class="{off: !showSendForm}" data-type="send_form"
+                                 ng-show="showSendForm">
+                                <div class="form-group form-group-single-inline">
+                                    <input name="email" class="form-control form-control-size-4"
+                                           placeholder="Введите эл. адрес" type="text" ng-model="webmasterEmail">
+                                </div>
+                                <button class="btn btn-add" ng-click="sendEmail(email)"><span>Отправить</span></button>
+                            </div>
+                            <div class="md-success" ng-show="codeSendedToWebmaster"><i class="fa fa-check-circle"></i>
+                                Успешно отправлено!
+                            </div>
+                        </div>
+
+                    </div>
+                    <a class="link __install-code"
+                       href="https://regidium.ru/sites/default/files/IMCE/manual_regidium.pdf" target="_blank">Инструкция
+                        по установке кода</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" aria-label="Close"
+                        ng-click="closeModal('#installCodeModal')"><span>Готово</span></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<div class="modal fade modal-entrance" id="installAppModal" tabindex="-1" role="dialog" ng-controller="WinstallCtrl">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Установите приложение</h4>
+                <p class="text-muted text-center text-offset-no">будьте всегда на связи</p>
+            </div>
+            <div class="modal-body">
+                <span class="ico __entransce-step-3" aria-hidden="true"></span>
+                <p>Чтобы не пропустить сообщения от посетителей сайта, а также чтобы быть всегда на связи — установите
+                    приложение на ПК.</p>
+
+                <div class="wrap wrap-radio-list">
+                    <p><strong>Работайте через десктоп приложение</strong></p>
+                    <ul class="list-radio-inline">
+                        <li>
+                            <div class="inline-radio">
+                                <a ng-href="http://update-app.regidium.com/win/{{linkForWinApp}}" class="inline-radio__label" target="_blank">
+                                    <span class="ico __windows" aria-hidden="true"></span>
+                                    <span>Скачать<br/> для Windows</span>
+                                </a>
+                            </div>
+
+                        </li>
+                        <!--<li>
+                            <div class="inline-radio">
+                                <input class="inline-radio__input" type="radio" name="install_type" id="type-macos"/>
+                                <label class="inline-radio__label" for="type-macos">
+                                    <span class="ico __macos" aria-hidden="true"></span>
+                                    <span>Скачать<br/> для Mac OS</span>
+                                </label>
+                            </div>
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="closeModal('#installAppModal')" data-dismiss="modal"><span>Закрыть</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+

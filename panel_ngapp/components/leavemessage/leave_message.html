@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="block block-leave-question js-leave-question-block" ng-controller="LeaveMessCtrl">
+        <button id='leave_message-btn' class="btn btn-get-help js-leave-question-btn" type="button"data-container="body" data-placement="top" data-trigger="hover" title="Написать в службу поддержки" data-toggle="tooltip" ng-click="leaveMessage()"><span class="ico __yellow-layer __pencil" aria-hidden="true"></span></button>
+        <div id="leave-message-form" class="layer layer-leave-question js-leave-question-form">
+            <div class="wrap wrap-leave-question" click-outside="closeIt()"
+                 outside-if-not="leave_message-btn, leave-message-form">
+                <p class="text">Здесь можно выразить ваше мнение или оставить комментарий о бета-версии нового
+                    Regidium</p>
+                <form>
+                    <div class="form-group">
+                        <textarea class="form-control form-text" rows="3" placeholder="Введите текст"
+                                  ng-model="message.text"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-default" ng-click="send()"><span>Отправить</span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

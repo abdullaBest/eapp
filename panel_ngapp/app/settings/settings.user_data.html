@@ -1,0 +1,140 @@
+<div class="container-fluid container-content">
+    <div class="row">
+        <dmenu path="app.settings_"></dmenu>
+        <div class="col-xs-20 col-sm-20 col-md-20 col-wide-left">
+            <div class="page-header">
+                <h1 class="h1">Данные посетителя</h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-18 col-sm-18 col-md-18">
+                    <form>
+                        <ul class="list-group list-group-static">
+                            <li class="list-group-item">
+                                <h3>Когда запрашивать <span class="ico __question" aria-hidden="true"
+                                                            data-container="body"
+                                                            data-placement="top"
+                                                            data-trigger="hover" title="Текст подсказки"
+                                                            data-toggle="tooltip">?</span></h3>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-wide">
+
+                                            <div class="select select-offset-right">
+                                                <div select select-options="variants" ng-model="settings.req_info">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-wide">
+                                            <div select select-options="variantList.list"
+                                                 ng-show="settings.req_info=='always' || settings.req_info=='sometime'"
+                                                 ng-model="settings.req_info_event"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="checkbox checkbox-offset-top checkbox-settings">
+                                    <input type="checkbox" id="do_not_accept" checked
+                                           ng-model="settings.disable_for_anonymous"/>
+                                    <label for="do_not_accept">Не принимать сообщения от анонимных
+                                        посетителей <span class="ico __question" aria-hidden="true"
+                                                          data-container="body"
+                                                          data-placement="top"
+                                                          data-trigger="hover" title="Текст подсказки"
+                                                          data-toggle="tooltip">?</span></label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <h3>Какие данные запрашивать <span class="ico __question" aria-hidden="true"
+                                                                   data-container="body"
+                                                                   data-placement="top"
+                                                                   data-trigger="hover" title="Текст подсказки"
+                                                                   data-toggle="tooltip">
+                                            ?</span></h3>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-wide-left">
+                                            <div class="checkbox checkbox-settings">
+                                                <input type="checkbox" id="requested_email"
+                                                       ng-model="settings.require_email"/>
+                                                <label for="requested_email">Эл. почту</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-wide-left">
+                                            <div class="checkbox checkbox-settings">
+                                                <input type="checkbox" id="requested_phone"
+                                                       ng-model="settings.require_phone"/>
+                                                <label for="requested_phone">Телефон</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-wide-left">
+                                            <div class="checkbox checkbox-settings">
+                                                <input type="checkbox" id="requested_name"
+                                                       ng-model="settings.require_name"/>
+                                                <label for="requested_name">Имя</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <h3>Сообщение с просьбой представиться <span class="ico __question"
+                                                                             aria-hidden="true"
+                                                                             data-container="body"
+                                                                             data-placement="top"
+                                                                             data-trigger="hover"
+                                                                             title="Текст подсказки"
+                                                                             data-toggle="tooltip">?</span></h3>
+                                <div class="from-group form-group-modal">
+                                    <label for="message_text">Текст сообщения</label>
+                                    <input type="text" class="form-control" id="message_text"
+                                           ng-model="settings.visitor_text"
+                                           placeholder="Представьтесь, чтобы мы могли ответить и продублировать переписку вам на "/>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <h3>Авторизация через социальные сети <span class="ico __question"
+                                                                            aria-hidden="true"
+                                                                            data-container="body"
+                                                                            data-placement="top"
+                                                                            data-trigger="hover"
+                                                                            title="Текст подсказки"
+                                                                            data-toggle="tooltip">?</span></h3>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-wide-left">
+                                            <div class="checkbox checkbox-settings">
+                                                <input type="checkbox" id="vk" disabled="true"/>
+                                                <label for="vk">Вконтакте</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-wide-left">
+                                            <div class="checkbox checkbox-settings">
+                                                <input type="checkbox" id="facebook" disabled="true"/>
+                                                <label for="facebook">Facebook</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                        <button class="btn btn-success-save" ng-disabled="noChange" type="button" ng-click="save()">
+                            <span>Сохранить изменения</span></button>
+                    </form>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-6 col-wide-left">
+                    <div class="alert alert-custom-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                        <h4 class="alert-title">Когда запрашивать</h4>
+                        <div class="alert-body">Сегодня виртуальная инфраструктура рабочих станций предлагает компаниям
+                            множество преимуществ.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

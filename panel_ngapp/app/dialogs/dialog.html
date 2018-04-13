@@ -1,0 +1,56 @@
+<div class="container-fluid container-content">
+    <div class="row">
+        <dmenu path="app.dialogs_dialog"></dmenu>
+        <div class="col-xs-20 col-sm-20 col-md-20 col-wide-left">
+            <div class="page-header">
+                <h1 class="h1">Журнал общения</h1>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-24 col-sm-24 col-md-24 ">
+
+                    <ul class="list-group list-group-static">
+                        <li class="list-group-item">
+                            <div class="wrap wrap-flex-align-center">
+                                <a class="link __block" ng-href="/journal"><span class="ico __back"
+                                                                           aria-hidden="true"></span></a>
+                                <a href="#" class="link __block __operator"><span
+                                        class="wrap wrap-image wrap-size-35"><img class="image"
+                                                                                  ng-src="{{operator.image}}"
+                                                                                  alt="{operator.name}"></span>
+                                    {{operator.name}}</a>
+                                <span class="ico __relations" aria-hidden="true"></span>
+                                <a href="#" class="link __block __client">{{webuser.name?webuser.name:"Анонимус"}}</a>
+                                <a class="link __block __print" href="#"><span class="ico __print"
+                                                                               aria-hidden="true"></span></a>
+                            </div>
+                        </li>
+                        <li class="list-group-item " mh-scrollbar>
+                            <ul class="list-group list-group-converse">
+                                <li class="list-group-item" ng-repeat="msg in messages">
+                                    <div class="converse-row">
+                                        <time class="converse-row__time">
+                                            <span>{{msg.dtime|date:'dd.MM.yyyy'}}</span>
+                                            <span>{{msg.dtime|date:'HH:mm'}}</span>
+                                        </time>
+                                        <span class="converse-row__name">{{(msg.direction=='o2w')?operator
+                                            .name:webuser.name}}</span>
+                                        <div class="converse-row__message">{{msg.text}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="list-group-item">
+                            <button type="button" class="btn btn-default btn-wide btn-load-more" ng-show="msg_number > messages.length"
+                                    ng-click="loadMoreMessages()">
+                                <span>Загрузить ещё</span></button>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

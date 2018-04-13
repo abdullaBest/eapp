@@ -1,0 +1,149 @@
+<!doctype html>
+<html class="no-js" ng-app="regidiumApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--base href="/"-->
+    <title ng-bind="($title || 'Панель управления Регидиум')">Панель управления Регидиум</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link href='google1.css' type='text/css'>
+    <link href="google2.css" rel="stylesheet /">
+
+    <script>
+        if (typeof module === 'object') { window.module = module; module = undefined;}
+        window.IPC = require('electron').ipcRenderer;
+    </script>
+
+      <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+      <link rel="stylesheet" href="bower_components/jquery-colpick/css/colpick.css" />
+      <link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.css" />
+      <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />
+
+      <link rel="stylesheet" href="assets/css/content/main_content.css">
+      <link rel="stylesheet" href="assets/css/content/auth.css">
+      <link rel="stylesheet" href="assets/css/extra_styles.css">
+      <link rel="stylesheet" href="bower_components/google-code-prettify/src/prettify.css">
+
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
+      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="bower_components/angular-animate/angular-animate.js"></script>
+      <script src="bower_components/lodash/lodash.js"></script>
+      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="bower_components/pass-gen-js/PassGenJS.js"></script>
+      <script src="bower_components/angular-click-outside/clickoutside.directive.js"></script>
+      <script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
+      <script src="bower_components/ng-clip/src/ngClip.js"></script>
+      <script src="bower_components/jquery-colpick/js/colpick.js"></script>
+      <script src="bower_components/angular-ui-router-title/angular-ui-router-title.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
+      <script src="bower_components/angular-moment/angular-moment.js"></script>
+      <script src="bower_components/raphael/raphael.js"></script>
+      <script src="bower_components/moment/locale/ru.js"></script>
+      <script src='bower_components/angular-loading-bar/build/loading-bar.min.js'></script>
+      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+      <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+      <script src="bower_components/angular-bootstrap-slider/slider.js"></script>
+      <script src="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js"></script>
+      <script src="bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
+      <script src="bower_components/angular-google-chart/ng-google-chart.js"></script>
+      <script src="bower_components/ya-map/ya-map-2.1.min.js"></script>
+      <script src="bower_components/angular-duration-format/dist/angular-duration-format.js"></script>
+      <script src="bower_components/multi-step-modal/multi-step-modal.js"></script>
+      <script src="./assets/loader.js"></script>
+      <script src="bower_components/angular-elastic/elastic.js"></script>
+      <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+        <script src="app/app.js"></script>
+          <script src="app/account/account.js"></script>
+          <script src="app/account/login/login.controller.js"></script>
+          <script src="app/account/remind/remind.controller.js"></script>
+          <script src="app/account/signup/signup.controller.js"></script>
+          <script src="app/billing/billing.controller.js"></script>
+          <script src="app/billing/billing.js"></script>
+          <script src="app/billing/billing.rebill.controller.js"></script>
+          <script src="app/billing/invoice.controller.js"></script>
+          <script src="app/billing/pay.controller.js"></script>
+          <script src="app/billing/payres.controller.js"></script>
+          <script src="app/chats/chats.controller.js"></script>
+          <script src="app/chats/chats.js"></script>
+          <script src="app/config.js"></script>
+          <script src="app/dialogs/dialog.controller.js"></script>
+          <script src="app/dialogs/dialogs.controller.js"></script>
+          <script src="app/dialogs/dialogs.js"></script>
+          <script src="app/msg.js"></script>
+          <script src="app/operators/departments.controller.js"></script>
+          <script src="app/operators/operators.controller.js"></script>
+          <script src="app/operators/operators.js"></script>
+          <script src="app/reports/reports.autoactions.controller.js"></script>
+          <script src="app/reports/reports.controller.js"></script>
+          <script src="app/reports/reports.dialog.controller.js"></script>
+          <script src="app/reports/reports.js"></script>
+          <script src="app/reports/reports.operator_work.controller.js"></script>
+          <script src="app/reports/reports.user_data.controller.js"></script>
+          <script src="app/settings/settings.autoactions.controller.js"></script>
+          <script src="app/settings/settings.bannedusers.controller.js"></script>
+          <script src="app/settings/settings.controller.js"></script>
+          <script src="app/settings/settings.js"></script>
+          <script src="app/settings/settings.notification.controller.js"></script>
+          <script src="app/settings/settings.user_data.controller.js"></script>
+          <script src="app/settings/settings.widget.controller.js"></script>
+          <script src="app/webusers/webusers.controller.js"></script>
+          <script src="app/webusers/webusers.js"></script>
+          <script src="components/auth/auth.service.js"></script>
+          <script src="components/auth/customer.service.js"></script>
+          <script src="components/auth/user.service.js"></script>
+          <script src="components/billing/payres.service.js"></script>
+          <script src="components/chats/chats.service.js"></script>
+          <script src="components/customer/customer.service.js"></script>
+          <script src="components/customer/tarif.service.js"></script>
+          <script src="components/customer/winstall.controller.js"></script>
+          <script src="components/forms/autocompletecondition.directive.js"></script>
+          <script src="components/forms/autofocus.directive.js"></script>
+          <script src="components/forms/colpick.directive.js"></script>
+          <script src="components/forms/rswitch.directive.js"></script>
+          <script src="components/forms/select.directive.js"></script>
+          <script src="components/forms/shakeform.directive.js"></script>
+          <script src="components/forms/validator.directive.js"></script>
+          <script src="components/leavemessage/leave_message.controller.js"></script>
+          <script src="components/mongoose-error/mongoose-error.directive.js"></script>
+          <script src="components/navbar/navbar.controller.js"></script>
+          <script src="components/net/net.service.js"></script>
+          <script src="components/notification/notification.controller.js"></script>
+          <script src="components/notify/notify.service.js"></script>
+          <script src="components/notify/payalarm.controller.js"></script>
+          <script src="components/operators/departments.service.js"></script>
+          <script src="components/operators/operators.service.js"></script>
+          <script src="components/sidebar/sidebar.controller.js"></script>
+          <script src="components/ui/confirm.directive.js"></script>
+          <script src="components/ui/dmenu.directive.js"></script>
+          <script src="components/ui/drange.directive.js"></script>
+          <script src="components/ui/duration.filter.js"></script>
+          <script src="components/ui/linechart.directive.js"></script>
+          <script src="components/ui/localtime.directive.js"></script>
+          <script src="components/ui/offlinetimepassed.directive.js"></script>
+          <script src="components/ui/ptooltip.directive.js"></script>
+          <script src="components/ui/rpopup.directive.js"></script>
+          <script src="components/ui/scroll.directive.js"></script>
+          <script src="components/ui/scrollbar.directive.js"></script>
+          <script src="components/ui/summword.filter.js"></script>
+          <script src="components/ui/timepassed.directive.js"></script>
+          <script src="components/ui/tooltip.service.js"></script>
+          <script src="components/webusers/webuserinfo.directive.js"></script>
+          <script src="components/webusers/webusers.service.js"></script>
+
+
+
+    <script>if (window.module) module = window.module;</script>
+  </head>
+  <body class="page" >
+
+    <div ui-view="" style="height:100%"></div>
+
+  </body>
+</html>

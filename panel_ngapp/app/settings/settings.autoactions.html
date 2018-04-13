@@ -1,0 +1,216 @@
+<div class="container-fluid container-content">
+    <div class="row">
+        <dmenu path="app.settings_"></dmenu>
+        <div class="col-xs-20 col-sm-20 col-md-20 col-wide-left">
+            <div class="page-header">
+                <h1 class="h1">Автоматические действия</h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-18 col-sm-18 col-md-18">
+                    <ul class="list-group list-group-static">
+                        <li class="list-group-item">
+                            <button class="btn btn-add" type="button"
+                                     ng-click="addAction()"><span>Добавить</span></button>
+                        </li>
+                        <li class="list-group-item list-group-item-hover" ng-class="{'off-state': !action.active}" ng-repeat="action in actions">
+                            <div class="wrap wrap-flex-align-center">
+                                <div class="wrap wrap-flex-column-half text-left">{{action.name}}</div>
+                                <div class="wrap wrap-flex-column-half text-right">
+                                    <div class="switch">
+                                        <input id="{{action._id}}" type="checkbox" class="switch-input" ng-model="action.active" ng-click="active(action)"/>
+                                        <label for="{{action._id}}" class="switch-label"></label>
+                                    </div>
+                                    <button type="button" class="btn btn-default" ng-click="editAction(action._id)"><span>Редактировать</span></button>
+                                    <button type="button" class="btn btn-tool" aria-label="Close" ng-click="deleteAction(action._id)"><span class="ico __tool-close" aria-hidden="true"></span></button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-wide-left">
+                    <div class="alert alert-custom-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                        <h4 class="alert-title">Автоматические действия</h4>
+                        <div class="alert-body">Сегодня виртуальная инфраструктура рабочих станций предлагает компаниям множество преимуществ. </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal -->
+<div class="modal fade modal-wide modal-automatic" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close close-big" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title" id="editLabel">{{modalform.modal_name}}</h4>
+            </div>
+            <ul class="list-group list-group-static">
+                <li class="list-group-item" click-outside="editNameStatus(false)"
+                    outside-if-not="action-name, edit-name">
+                    <input focus="true" id="action-name" ng-show="editName" type="text" class="form-control"
+                            placeholder="Введите название действия" ng-model="modalform.name" required/>
+                    <a ng-show="!editName" id="edit-name" ng-click="editNameStatus(true)" href="#"
+                       class="link __black-block">
+                        {{modalform.name}}<span class="ico __edit" aria-hidden="true"></span></a>
+                </li>
+                <li class="list-group-item">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-wide-left">
+                                <strong>Когда выполнять</strong>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="checkbox checkbox-radio">
+                                    <input id="edit_when_always" type="radio" value="always" name="edit_action_when" ng-click="setOperatorStatus('always');" ng-checked="modalform.operatorstatus=='always'"/>
+                                    <label for="edit_when_always" ng-click="setOperatorStatus('always'); $event.preventDefault();">Всегда</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="checkbox checkbox-radio">
+                                    <input id="edit_when_online" type="radio" value="active" name="edit_action_when" ng-click="setOperatorStatus('active');" ng-checked="modalform.operatorstatus=='active'"/>
+                                    <label for="edit_when_online" ng-click="setOperatorStatus('active'); $event.preventDefault();">Оператор в сети</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-wide-right">
+                                <div class="checkbox checkbox-radio" >
+                                    <input id="edit_when_offline" type="radio" value="disabled" name="edit_action_when" ng-click="setOperatorStatus('disabled');" ng-checked="modalform.operatorstatus=='disabled'"/>
+                                    <label for="edit_when_offline" ng-click="setOperatorStatus('disabled'); $event.preventDefault();">Оператор вне сети</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-wide-left">
+                                <strong>Если выполняется</strong>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="checkbox checkbox-radio">
+                                    <input type="radio" id="edit_single_condition" name="edit_action_condition" ng-click="setBLogic('or')" ng-checked="modalform.conditionsbl=='or'" />
+                                    <label for="edit_single_condition" ng-click="setBLogic('or'); $event.preventDefault();">Одно из условий</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="checkbox checkbox-radio">
+                                    <input type="radio" id="edit_all_condition" name="edit_action_condition" ng-click="setBLogic('and')" ng-checked="modalform.conditionsbl=='and'" />
+                                    <label for="edit_all_condition" ng-click="setBLogic('and'); $event.preventDefault();">Все условия</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <h3>Условие</h3>
+                    <div class="container-fluid">
+                        <div class="row" ng-repeat="(key, condition) in modalform.conditions">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-wide-left">
+                                <div class="form-group">
+                                    <div select select-options="conditionsTypes" ng-model="condition.type"></div>
+                                </div>
+                            </div>
+                            <div class="col-wide" ng-class="{'col-xs-3 col-sm-3 col-md-3':condition.type!='week_day','col-xs-5 col-sm-5 col-md-5':condition.type=='week_day','hide':condition.type=='default' || condition.type=='country' || condition.type=='city'}">
+                                <div class="form-group" ng-switch on="condition.type">
+                                    <div select select-options="conditionsComparsion" ng-model="condition.comparsion" ng-switch-default></div>
+                                    <div select select-options="conditionsComparsionDay" ng-model="condition.value" ng-switch-when="week_day"></div>
+                                    <div select select-options="conditionsComparsionUrl" ng-model="condition.comparsion" ng-switch-when="url"></div>
+                                </div>
+                            </div>
+                            <div ng-class="{'col-wide-right':condition.type!='country'&&condition.type!='city'&&condition.type=='week_day','col-wide':condition.type=='country'||condition.type=='city','col-xs-10 col-sm-10 col-md-10':condition.type!='week_day','col-xs-3 col-sm-3 col-md-3 col-wide-left':condition.type=='week_day'}" ng-hide="condition.type=='default'">
+                                <div class="form-group" ng-switch on="condition.type">
+                                    <div class="input-group input-group-with-clean" ng-switch-when="url">
+                                        <input type="text" class="form-control" placeholder="Введите URL страницы" ng-model="condition.value" />
+                                        <span class="input-group-btn">
+                                                 <button type="button" class="btn btn-tool" ng-click="deleteCondition(condition)"><span class="ico __tool-close" aria-hidden="true"></span></button>
+                                        </span>
+                                    </div>
+                                    <div class="input-group input-group-with-clean" ng-switch-when="time">
+                                        <input type="text" class="form-control" placeholder="сек" ng-model="condition.value" />
+                                        <span class="input-group-btn">
+                                                 <button type="button" class="btn btn-tool" ng-click="deleteCondition(condition)"><span class="ico __tool-close" aria-hidden="true"></span></button>
+                                        </span>
+                                    </div>
+                                    <div class="input-group input-group-with-clean" ng-switch-default>
+                                        <input type="text" class="form-control" placeholder="шт" ng-model="condition.value" />
+                                        <span class="input-group-btn">
+                                                 <button type="button" class="btn btn-tool" ng-click="deleteCondition(condition)"><span class="ico __tool-close" aria-hidden="true"></span></button>
+                                        </span>
+                                    </div>
+                                    <div class="input-group input-group-with-clean pull-left" ng-switch-when="city">
+                                        <input type="text" name="city" auto-complete-condition="{{key}}"
+                                               ui-items="citiesList" country-id="{{countryId}}" class="form-control"
+                                               placeholder="Название города" ng-model="condition.value" validcity />
+                                        <span class="input-group-btn">
+                                                 <button type="button" class="btn btn-tool" ng-click="deleteCondition(condition)"><span class="ico __tool-close" aria-hidden="true"></span></button>
+                                        </span>
+                                    </div>
+                                    <div class="input-group input-group-with-clean pull-left" ng-switch-when="country">
+                                        <input type="text" name="country" auto-complete-condition="{{key}}"
+                                               ui-items="countriesList" class="form-control"
+                                               placeholder="Название страны" ng-model="condition.value" validcountry/>
+                                        <span class="input-group-btn">
+                                                 <button type="button" class="btn btn-tool" ng-click="deleteCondition(condition)"><span class="ico __tool-close" aria-hidden="true"></span></button>
+                                        </span>
+                                    </div>
+                                    <div class="input-group input-group-with-clean" ng-switch-when="week_day">
+                                        <span class="input-group-btn">
+                                                 <button type="button" class="btn btn-tool" ng-click="deleteCondition(condition)"><span class="ico __tool-close" aria-hidden="true"></span></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default btn-add-condition" ng-click="addCondition()"><span>Добавить условие</span></button>
+                </li>
+                <li class="list-group-item">
+                    <h3>Тогда выполнить</h3>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-wide-left">
+                                <div class="form-group">
+                                    <div select select-options="actionsRepetition"
+                                         ng-model="modalform.repetition"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-wide-left">
+                                <div class="form-group">
+                                    <div select select-options="actionsTypes" class="size-1 control-elements"
+                                         ng-model="modalform.actiontype"></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-7 col-sm-7 col-md-7 col-wide" ng-hide="modalform.actiontype!='playsound'">
+                                <div class="form-group">
+                                    <div select select-options="actionsTypePlaysound" class="size-2 control-elements"
+                                         ng-model="modalform.actiontypeplaysound"
+                                         data-attribute-source="{{value}}"></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-7 col-sm-7 col-md-7" ng-hide="modalform.actiontype!='playsound'">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-play" ng-click="chooseSound(modalform.actiontypeplaysound, playSound)">Прослушать
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-no-offset" ng-show="modalform.actiontype == 'openmessage'">
+                        <textarea class="form-control form-textarea" placeholder="Введите сообщение" ng-model="modalform.message"></textarea>
+                    </div>
+                </li>
+            </ul>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success-add btn-wide-modal" ng-click="saveAction()"><span>Сохранить</span></button>
+                <button type="button" class="btn btn-default-lg" data-dismiss="modal" aria-label="Close"><span>Отменить</span></button>
+            </div>
+        </div>
+    </div>
+</div>

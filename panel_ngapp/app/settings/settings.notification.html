@@ -1,0 +1,142 @@
+<div class="container-fluid container-content">
+    <div class="row ">
+        <dmenu path="app.settings_"></dmenu>
+        <div class="col-xs-20 col-sm-20 col-md-20 col-wide-left">
+            <div class="page-header">
+                <h1 class="h1">Оповещения</h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-18 col-sm-18 col-md-18">
+                    <form>
+                        <ul class="list-group list-group-static">
+                            <li class="list-group-item">
+                                <ul class="list-unstyled-enum">
+                                    <li>
+                                        <div class="checkbox checkbox-offset-bottom checkbox-settings">
+                                            <input type="checkbox" id="new_visitors"
+                                                   ng-model="notification.webuser_in.enabled"/>
+                                            <label for="new_visitors">Сообщать о новых посетителях на сайте</label>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <div class="row" ng-hide="!notification.webuser_in.enabled">
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-wide-left">
+                                                    <div select select-options="notificationType"
+                                                         ng-model="notification.webuser_in.type"></div>
+                                                </div>
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-wide-left"
+                                                     ng-show="notification.webuser_in.type=='audio' || notification.webuser_in.type=='audio_info'">
+                                                    <div select select-options="sounds"
+                                                         ng-model="notification.webuser_in.audio_file"></div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-wide"
+                                                     ng-if="notification.webuser_in.audio_file != 'default'"
+                                                     ng-show="notification.webuser_in.type=='audio' || notification.webuser_in.type=='audio_info'">
+                                                    <button type="button" class="btn btn-play btn-wide"
+                                                            ng-click="chooseSound('in', notification.webuser_in.audio_file, playSound)">
+                                                        <span>Прослушать</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox checkbox-offset-bottom checkbox-settings">
+                                            <input type="checkbox" id="visitors_out"
+                                                   ng-model="notification.webuser_out.enabled"/>
+                                            <label for="visitors_out">Сообщать об уходе посетителей из сайта</label>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <div class="row" ng-hide="!notification.webuser_out.enabled">
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-wide-left">
+                                                    <div select select-options="notificationType"
+                                                         ng-model="notification.webuser_out.type"></div>
+                                                </div>
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-wide-left"
+                                                     ng-show="notification.webuser_out.type=='audio' || notification.webuser_out.type=='audio_info'">
+                                                    <div select select-options="sounds"
+                                                         ng-model="notification.webuser_out.audio_file"></div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-wide"
+                                                     ng-if="notification.webuser_out.audio_file != 'default'"
+                                                     ng-show="notification.webuser_out.type=='audio' || notification.webuser_out.type=='audio_info'">
+                                                    <button type="button" class="btn btn-play btn-wide"
+                                                            ng-click="chooseSound('out', notification.webuser_out.audio_file, playSound)">
+                                                        <span>Прослушать</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox checkbox-offset-bottom checkbox-settings">
+                                            <input type="checkbox" id="new_messages"
+                                                   ng-model="notification.new_message.enabled"/>
+                                            <label for="new_messages">Сообщать о новых сообщениях в чат</label>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <div class="row" ng-hide="!notification.new_message.enabled">
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-wide-left">
+                                                    <div select select-options="notificationType"
+                                                         ng-model="notification.new_message.type"></div>
+                                                </div>
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-wide-left"
+                                                     ng-show="notification.new_message.type=='audio' || notification.new_message.type=='audio_info'">
+                                                    <div select select-options="sounds"
+                                                         ng-model="notification.new_message.audio_file"></div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-wide"
+                                                     ng-if="notification.new_message.audio_file != 'default'"
+                                                     ng-show="notification.new_message.type=='audio' || notification.new_message.type=='audio_info'">
+                                                    <button type="button"
+                                                            class="btn btn-play btn-wide" ng-click="chooseSound('new_message', notification.new_message.audio_file, playSound)">
+                                                        <span>Прослушать</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li ng-show="currentUser.isadmin">
+                                        <div class="checkbox checkbox-offset-bottom checkbox-settings">
+                                            <input type="checkbox" id="new_answers"
+                                                   ng-model="notification.for_webuser.enabled"/>
+                                            <label for="new_answers">Сообщать посетителю об ответах оператора</label>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <div class="row" ng-hide="!notification.for_webuser.enabled">
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-wide-left">
+                                                    <div select select-options="notificationType"
+                                                         ng-model="notification.for_webuser.type"></div>
+                                                </div>
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-wide-left"
+                                                     ng-show="notification.for_webuser.type=='audio' || notification.for_webuser.type=='audio_info'">
+                                                    <div select select-options="sounds"
+                                                         ng-model="notification.for_webuser.audio_file"></div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-wide"
+                                                     ng-if="notification.for_webuser.audio_file != 'default'"
+                                                     ng-show="notification.for_webuser.type=='audio' || notification.for_webuser.type=='audio_info'">
+                                                    <button type="button" class="btn btn-play btn-wide"
+                                                            ng-click="chooseSound('webuser', notification.for_webuser.audio_file, playSound)">
+                                                        <span>Прослушать</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <button class="btn btn-success-save" type="button" ng-disabled="noChange" ng-click="save()"><span>Сохранить изменения</span></button>
+                    </form>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-wide-left">
+                    <div class="alert alert-custom-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                        <h4 class="alert-title">Заголовок</h4>
+                        <div class="alert-body">Текст.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

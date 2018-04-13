@@ -1,0 +1,43 @@
+<section class="block-box clearfix">
+    <div class="block b-size-12 block-info operators-edit-block settings-block user-block-list clearfix">
+        <dmenu path="app.settings_"></dmenu>
+        <div class="block__content clearfix">
+            <div class="block-log">
+                <div class="b-panel-table">
+                    <table class="operators-edit-list department-list" id="oid-table">
+                        <thead>
+                            <tr class="op-head">
+                                <td class="t-operator t-content">Посетитель</td>
+                                <td class="t-dep-count">Дата блокировки</td>
+                                <!--<td class="t-dep-period">Период блокировки</td>-->
+                                <td class="t-ip">IP</td>
+                                <!--<td class="t-issue">Причина блокировки</td>-->
+                                <!-- <td class="t-edit t-content"> -->
+                                <td class="t-del t-content"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="op-row" ng-repeat="user in users">
+                                <td class="t-operator t-content">
+                                    <p class="op-name">{{user._id}}</p>
+                                </td>
+                                <td class="t-dep-count">
+                                    <span class="dep-count-value">{{user.block_date|date : 'dd.MM.yyyy'}}</span>
+                                </td>
+                                <!--<td class="t-dep-period">14</td>-->
+                                <td class="t-ip">{{user.ip}}</td>
+                                <!--<td class="t-issue">Спам</td>-->
+                                <!-- <td class="t-edit t-content"><a href="#edit-operator-wnd" class="edit-link"></a></td> -->
+                                <td class="t-del t-content">
+                                    <a href="#" ng-click="unblock(user._id)" class="del-link">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

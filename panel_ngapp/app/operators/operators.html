@@ -1,0 +1,235 @@
+<div class="container-fluid container-content">
+    <div class="row ">
+        <dmenu class="col-xs-3 col-sm-3 col-md-3" path="app.operators_"></dmenu>
+        <div class="col-xs-21 col-sm-21 col-md-21 col-wide-left">
+            <div class="page-header">
+                <h1 class="h1">Операторы</h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-18 col-sm-18 col-md-18">
+                    <ul class="list-group list-group-static-short">
+                        <li class="list-group-item">
+                            <button type="button" class="btn btn-add" ng-hide="!currentBill && operatorsAdded === 10" ng-click="new()"><span>Добавить</span>
+                            </button>
+                            <a class="btn btn-add" ng-href="/billing" ng-show="!currentBill && operatorsAdded === 10"><span>Добавить</span></a>
+                            <div class="wrap wrap-operator-offset">
+                                <table class="table table-custom-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text text-operator-table-name"></th>
+                                        <th>Роль:</th>
+                                        <th class="text text-operator-table-time">Был онлайн:</th>
+                                        <th>Группа:</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="operator in operators">
+                                        <td class="text text-operator-table-name">
+                                                <span class="indicator"
+                                                      ng-class="{'indicator-online': operator.online, 'indicator-offline': !operator.online}"></span>
+                                            <strong ng-bind-html="operator.name"
+                                                    data-container="body"
+                                                    data-placement="top"
+                                                    data-trigger="hover" data-original-title="{{operator.name}}"
+                                                    data-toggle="tooltip">{{operator.name}}</strong>
+                                        </td>
+                                        <td ng-if="operator.isadmin">Администратор</td>
+                                        <td ng-if="!operator.isadmin">Оператор</td>
+                                        <td class="text text-operator-table-time"><span
+                                                data-container="body"
+                                                data-placement="top"
+                                                data-trigger="hover"
+                                                data-original-title="{{getOperatorOnlineTime(operator)}}"
+                                                data-toggle="tooltip">
+                                                {{getOperatorOnlineTime(operator)}}</span></td>
+                                        <td class="text text-operator-group">
+                                            <span>{{getGroup(operator.division)}}</span>
+                                        </td>
+                                        <td class="no-offset-right">
+                                            <button type="button" class="btn btn-default btn-wide"
+                                                    ng-hide="operator._id!=currentUser._id && !currentUser.isadmin"
+                                                    ng-click="edit(operator._id);">
+                                                <span>Редактировать</span></button>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-tool"
+                                                    ng-hide="operator._id===currentUser._id || !currentUser.isadmin"
+                                                    ng-click="delete(operator._id)"><span class="ico __tool-close"
+                                                                                          aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-wide-left" ng-show="currentUser.isadmin">
+                    <ul class="list-group list-group-static-small">
+                        <li class="list-group-item">
+                            <strong>Количество операторов</strong>
+                            <ul class="list-operator-info">
+                                <li>
+                                    <div class="wrap wrap-operator-paid-info">
+                                        <div class="wrap-operator-paid-info__key">
+                                            <span class="ico __operator-paid-plus" aria-hidden="true"></span>
+                                            Добавлено:
+                                        </div>
+                                        <div class="wrap-operator-paid-info__value">
+                                            <span class="wrap-operator-paid-info__value-separator"
+                                                  aria-hidden="true"></span>
+                                            <strong class="wrap-operator-paid-info__value-text">{{operatorsAdded}}</strong>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="wrap wrap-operator-paid-info">
+                                        <div class="wrap-operator-paid-info__key">
+                                            <span class="ico __operator-paid-rouble" aria-hidden="true"></span>
+                                            Оплачено:
+                                        </div>
+                                        <div class="wrap-operator-paid-info__value">
+                                            <span class="wrap-operator-paid-info__value-separator"
+                                                  aria-hidden="true"></span>
+                                            <strong class="wrap-operator-paid-info__value-text">{{operatorsBought}}</strong>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="selected"
+                                    ng-class="{'above-zero':operatorsBought - operatorsAdded > 0}"
+                                    ng-show="(operatorsBought - operatorsAdded) > 0">
+                                    <div class="wrap wrap-operator-paid-info">
+                                        <div class="wrap-operator-paid-info__key">
+                                            <span class="ico __operator-paid-check" aria-hidden="true"></span>
+                                            Доступно:
+                                        </div>
+                                        <div class="wrap-operator-paid-info__value">
+                                            <span class="wrap-operator-paid-info__value-separator"
+                                                  aria-hidden="true"></span>
+                                            <strong class="wrap-operator-paid-info__value-text">{{operatorsBought>0?operatorsBought
+                                                - operatorsAdded:0}}</strong>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a ng-href="/billing" type="button" class="btn btn-default btn-wide"><span>Докупить
+                                операторов</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal -->
+<div class="modal fade modal-add-operator" id="addOperatorModal" tabindex="-1" role="dialog"
+     aria-labelledby="addOperatorLabel" flow-init="{headers:{authorization: 'Bearer '+token}}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close close-big" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title" id="addOperatorLabel">{{modalform.title}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="wrap wrap-flex-align-center wrap-flex-space-between">
+                    <img class="wrap-size-50" ng-src="{{modalform.image}}">
+                        <input id="fileUpload" type="file" class="ng-hide" nv-file-select uploader="uploader" accept="image/*">
+                        <label for="fileUpload" class="btn btn-add btn-operator-photo-action">
+                            <span>Загрузить фото</span>
+                        </label>
+                        <button type="button" class="btn btn-default btn-operator-photo-action-small"
+                                ng-show="isNewImg" ng-click="deleteImage()">Удалить
+                        </button>
+                </div>
+
+                <div class="progress progress-custom ng-hide" ng-show="uploading">
+                    <!--<div class="progress-count">45.56КБ из 56.4КБ</div>-->
+                    <!--<div class="progress-now">{{progress}}%</div>-->
+                    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                         ng-style="{width: progress + '%'}">
+                    </div>
+                    <button type="button" class="close close-progress" aria-label="Close" ng-click="cancel()" ></button>
+                </div>
+                <form submitted="submitted" name="form" novalidate class="operator-form">
+                    <div class="form-group form-group-modal-operator">
+                        <label for="operator_name">ФИО оператора</label>
+                        <input type="text" class="form-control" ng-model="modalform.name" id="operator_name"
+                               placeholder="Введите имя" autofocus required/>
+                    </div>
+                    <div class="form-group form-group-modal-operator">
+                        <label>Отдел</label>
+                        <div class="select select-size-220">
+                            <div select select-label="" select-options="departments"
+                                 ng-model="modalform.division"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-modal-operator">
+                        <label for="operator_post">Должность</label>
+                        <input type="text" class="form-control" id="operator_post" placeholder="Укажите должность"
+                               ng-model="modalform.jobtitle"/>
+                    </div>
+                    <div class="form-group form-group-modal-operator">
+                        <label for="operator_email">Электронная почта</label>
+                        <input type="email" required="true" class="form-control email" id="operator_email"
+                               placeholder="Укажите электронную почту" ng-model="modalform.email" ng-pattern=""/>
+                    </div>
+                    <div class="form-group form-group-modal-operator">
+                        <label for="operator_password">Пароль</label>
+                        <input type="password" class="form-control" id="operator_password"
+                               placeholder="Придумайте пароль" ng-model="modalform.password"/>
+                    </div>
+                    <div class="form-group form-group-modal-operator" ng-hide="!currentUser.isadmin">
+                        <div class="checkbox checkbox-settings">
+                            <input type="checkbox" id="operator-role" ng-checked="modalform.isadmin"
+                                   ng-model="modalform.isadmin"/>
+                            <label for="operator-role">Администратор <span class="ico __question" aria-hidden="true"
+                                                                           data-container="body"
+                                                                           data-placement="top"
+                                                                           data-trigger="hover"
+                                                                           data-original-title="Роль оператора"
+                                                                           data-toggle="tooltip">?</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-modal-operator" ng-show="currentUser.isadmin && !modalform.isMe">
+                        <div class="checkbox checkbox-settings">
+                            <input type="checkbox" id="operator-block-input" ng-checked="modalform.blocked"
+                                   ng-model="modalform.blocked"/>
+                            <label for="operator-block-input">Блокировать вход <span class="ico __question"
+                                                                                     aria-hidden="true"
+                                                                                     data-container="body"
+                                                                                     data-placement="top"
+                                                                                     data-trigger="hover"
+                                                                                     data-original-title="Блокировать вход"
+                                                                                     data-toggle="tooltip">?</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-modal-operator">
+                        <div class="checkbox checkbox-settings">
+                            <input type="checkbox" id="operator-send-message" ng-checked="modalform.sendmsg"
+                                   ng-model="modalform.sendmsg"/>
+                            <label for="operator-send-message">Отправить на почту информацию о регистрации <span
+                                    class="ico __question" aria-hidden="true" data-container="body"
+                                    data-placement="top"
+                                    data-trigger="hover"
+                                    data-original-title="Отправить данный о регистрации на почту"
+                                    data-toggle="tooltip">?</span></label>
+                        </div>
+                    </div>
+                    <p class="error-text"><span></span></p>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success-save btn-wide-modal" ng-click="submitForm(form)"><span>
+                    Сохранить</span>
+                </button>
+                <button type="button" class="btn btn-default-lg" data-dismiss="modal" aria-label="Close">
+                    <span>Вернуться</span></button>
+            </div>
+        </div>
+    </div>
+</div>

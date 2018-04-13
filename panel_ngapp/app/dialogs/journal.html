@@ -1,0 +1,103 @@
+<div class="container-fluid container-content">
+    <div class="row">
+        <dmenu path="app.dialogs_dialogs"></dmenu>
+        <div class="block__content col-md-20 col-sm-20 col-xs-20">
+            <div class="page-header">
+                <h1 class="h1">Журнал общения</h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-24 col-sm-24 col-md-24">
+
+                    <!-- WHEN WE HAVE CHATS FOR DISPLAY -->
+                    <ul class="list-group list-group-static-short" ng-show="dialogs.length > 0">
+                        <li class="list-group-item">
+                            <form action="converse_log.html">
+                                <div class="form-group-operator wrap-flex-align-center form-group-log">
+
+                                    <div class="select-size-220" select select-label="" select-options="periods"
+                                         ng-model="period">
+                                    </div>
+                                    <div drange ng-show="customPeriod.show" range="customPeriod"></div>
+
+                                    <div class="select-size-220" select select-label=""
+                                         select-options="operatorsList" ng-model="operator">
+
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="wrap wrap-operator-offset converse-journal" mh-scrollbar>
+                                <table class="table table-custom-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text text-operator-table-name">Дата</th>
+                                        <th>Длительность диалога</th>
+                                        <th>Сообщений</th>
+                                        <th>Клиент</th>
+                                        <th>Оператор</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr style="cursor:pointer" ng-repeat="dialog in dialogs|orderBy: '-start'" ng-click="showDialog(dialog)">
+                                        <td class="text text-operator-table-name">
+                                            {{dialog.start|date:'dd.MM.yyyy'}}, {{dialog.start|date:'HH:mm'}}
+                                        </td>
+                                        <td>{{takeDuration(dialog)}}</td>
+                                        <td><strong>{{dialog.messages}}</strong></td>
+                                        <td>
+                                            <strong>{{dialog.webuser.name?dialog.webuser.name:"Анонимус"}}</strong>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="link __block __operator">
+                                            <span class="wrap wrap-image wrap-size-35">
+                                                <img class="image" ng-src="{{dialog.operator.image}}">
+                                            </span>
+                                                <span>{{dialog.operator.name}}</span>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-tool" data-container="body" data-placement="top" data-trigger="hover" data-original-title="Удалить переписку" data-toggle="tooltip" ng-click="deleteDialog(dialog.operatorid, dialog.webuser, dialog.start, dialog.end, $event)">
+                                                <span class="ico __tool-close" aria-hidden="true" ></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- WHEN DON'T HAVE CHATS FOR DISPLAY -->
+                    <ul class="list-group list-group-static-short list-group-no-offset js-watch-height"
+                        ng-hide="dialogs.length > 0">
+                        <li class="list-group-item">
+                            <form action="converse_log.html">
+                                <div class="form-group-operator wrap-flex-align-center form-group-log">
+
+                                    <div class="select-size-220" select select-label="" select-options="periods"
+                                         ng-model="period">
+                                    </div>
+                                    <div drange ng-show="customPeriod.show" range="customPeriod"></div>
+
+                                    <div class="select-size-220" select select-label=""
+                                         select-options="operatorsList" ng-model="operator">
+
+                                    </div>
+                                </div>
+                            </form>
+
+                        </li>
+                        <li class="list-group-item js-watch-height">
+                            <div class="layer layer-center">
+                                <p class="text-muted">За указанный период собщений нет.</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

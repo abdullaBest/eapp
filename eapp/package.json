@@ -1,0 +1,71 @@
+{
+  "name": "eapp",
+  "productName": "eapp",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "keywords": [],
+  "author": "Abdulla",
+  "license": "MIT",
+  "main": "main.js",
+  "dependencies": {
+    "auto-launch": "^5.0.5",
+    "electron-updater": "^2.21.4"
+  },
+  "build": {
+    "appId": "ru.regidium.desktop",
+    "copyright": "Copyright © 2017 Regidium",
+    "files": [
+      "main.js",
+      "index.html",
+      "popup.html",
+      "logo.png",
+      "google1.css",
+      "google2.css",
+      {
+        "from": "../panel_ngapp/app",
+        "to": "app"
+      },
+      {
+        "from": "../panel_ngapp/assets",
+        "to": "assets"
+      },
+      {
+        "from": "../panel_ngapp/bower_components",
+        "to": "bower_components"
+      },
+      {
+        "from": "../panel_ngapp/components",
+        "to": "components"
+      }
+    ],
+    "asar": true,
+    "mac": {
+      "category": "public",
+      "target": [
+        "dmg"
+      ],
+      "publish": [
+        {
+          "provider": "generic",
+          "url": "http://update-app.regidium.com/mac"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "publish": [
+        {
+          "provider": "generic",
+          "url": "http://update-app.regidium.com/win"
+        }
+      ]
+    },
+    "nsis": {
+      "installerIcon": "icon.ico",
+      "language": "0019",
+      "artifactName": "${productName}Setup-${version}.${ext}"
+    }
+  }
+}

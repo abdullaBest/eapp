@@ -1,0 +1,192 @@
+<div class="page__auth">
+  <header class="header header-auth">
+    <div class="container-fluid-auth">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <a ng-href="/login" class="link __block" tabindex="-1"><img src="https://my.regidium.com/assets/i/regidium_logo.svg" alt="Regidium" width="180" height="45"/></a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <a ng-href="/login" class="btn btn-add btn-float-right"><span>Войти</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="content-auth">
+    <div class="container-fluid-auth">
+      <div class="row">
+        <div class="col-xs-24 col-sm-24 col-md-24">
+          <div class="page-header page-header-auth">
+            <h1 class="h1">Регистрация</h1>
+            <div class="page-header-text"> займет не более 1 минуты</div>
+          </div>
+
+          <form class="js-custom-validate" name="form" ng-submit="register(form)" accept-charset="UTF-8">
+            <ul class="list-group list-group-static list-group-auth">
+                <!-- LOGIN -->
+              <li class="list-group-item">
+                <div class="form-group form-group-auth" ng-class="{'form-group-error': errors.type==0 || form.email.$error.required  && submitted || (!form.email.$$rawModelValue.length && form.email.$dirty) }">
+                  <input
+                    name="email"
+                    class="email form-control"
+                    placeholder="Эл. почта"
+                    onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Эл. почта'"
+                    type="email"
+                    data-toggle="tooltip"
+                    data-trigger="focus"
+                    data-placement="right"
+                    data-original-title="Эл. почта"
+                    data-required="1"
+                    ng-model="user.email"
+                    mongoose-error
+                    ng-pattern="regexEmail"
+                  />
+                </div>
+                  <!-- ############## -->
+
+                  <!-- PASSWORD -->
+                <div class="form-group form-group-auth form-group-pass" ng-class="{'form-group-error': errors.type==1 || form.password.$error.required  && submitted || (!form.password.$$rawModelValue.length && form.password.$dirty) }">
+                  <input
+                    name="password"
+                    class="password form-control"
+                    type="{{inputType}}"
+                    placeholder="Придумайте пароль"
+                    onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Придумайте пароль'"
+                    data-toggle="tooltip"
+                    data-trigger="focus"
+                    data-placement="right"
+                    data-original-title="Придумайте пароль"
+                    data-required="1"
+                    ng-model="user.password"
+                    ng-minlength="6"
+                    mongoose-error
+                  />
+                    <button tabindex="-1" class="btn btn-void btn-void-lock" ng-class="{'is-strong': user.password.length >= 6}" type="button"><i class="fa fa-lock" aria-hidden="true"></i></button>
+                    <button tabindex="-1" ng-click="showHidePassword()" class="btn btn-void btn-void-pass js-input-pass" ng-class="{'is-active': inputType == 'text'}" data-target="input_pass" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                  <span class="link __generate-pass" ng-click="generatePassword()">Сгенерировать случайный пароль</span>
+                </div>
+                  <!-- ############## -->
+
+                  <!-- NAME -->
+                <div class="form-group form-group-auth" ng-class="{'form-group-error': errors.type==4 || form.name.$error.required  && submitted || (!form.name.$$rawModelValue.length && form.name.$dirty) }">
+                  <input
+                    name="name"
+                    class="name form-control"
+                    placeholder="ФИО"
+                    onfocus="this.placeholder =''"
+                    onblur="this.placeholder = 'ФИО'"
+                    type="text"
+                    data-toggle="tooltip"
+                    data-trigger="focus"
+                    data-placement="right"
+                    data-original-title="ФИО"
+                    data-required="1"
+                    ng-model="user.name"
+                  />
+                </div>
+                  <!-- ############## -->
+
+                  <!-- SITE -->
+                <div class="form-group form-group-auth" ng-class="{'form-group-error': errors.type==3 || form.site.$error.required  && submitted || (!form.site.$$rawModelValue.length && form.site.$dirty) || form.site.$error.pattern && submitted }">
+                    <input
+                      name="site"
+                      class="site form-control"
+                      placeholder="Адрес сайта"
+                      onfocus="this.placeholder = ''"
+                      onblur="this.placeholder = 'Адрес сайта'"
+                      type="text"
+                      data-toggle="tooltip"
+                      data-trigger="focus"
+                      data-placement="right"
+                      data-original-title="Адрес сайта"
+                      data-required="1"
+                      ng-model="user.site"
+                      ng-pattern="regexSite"
+                    />
+                </div>
+                  <!-- ############## -->
+
+                <!-- LICENSE -->
+                <div class="form-group from-group-auth">
+                  <div class="checkbox checkbox-settings checkbox-auth">
+                    <input tabindex="-1" id="condition" type="checkbox" ng-model="user_agreement">
+                    <label for="condition">Я соглашаюсь с <a tabindex="-1" href="https://regidium.ru/user-agreement" target="_blank">условиями предоставления услуг</a> и <a tabindex="-1" href="https://regidium.ru/privacy" target="_blank">политикой конфиденциальности</a></label>
+                  </div>
+                </div>
+                <!-- ############## -->
+
+                  <!-- SUBMIT -->
+                <div class="form-group form-group-no-offset">
+                  <div class="wrap wrap-flex-align-center wrap-flex-space-between">
+                    <button
+                      tabindex="-1"
+                      type="submit"
+                      name="submit"
+                      class="btn btn-add btn-wide"
+                      ng-disabled="!user_agreement"
+                    ><span>Зарегистрироваться</span></button>
+                  </div>
+                </div>
+                  <!-- ############## -->
+              </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer footer-auth">
+    <div class="container-fluid-auth">
+      <div class="row">
+        <div class="col-xs-24 col-sm-24 col-md-24">
+          <div class="text-center">© {{year}} Regidium, LLC</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+<!--<div class="error-notification" ng-show="submitted && (form.name.$error.required || form.email.$error.required || form.email.$error.email || form.password.$error.required || form.password.$error.minlength || errors)">-->
+
+<!--<p class="error-text" ng-show="form.email.$error.required && submitted">-->
+<!--Введите эл. почту-->
+<!--</p>-->
+
+<!--<p class="error-text" ng-show="form.email.$error.pattern && submitted">-->
+<!--Введите корректный адрес эл. почты-->
+<!--</p>-->
+
+<!--<p class="error-text" ng-show="form.name.$error.required && submitted">-->
+<!--Введите Имя и Фамилию-->
+<!--</p>-->
+
+<!--<p class="error-text" ng-show="form.site.$error.required && submitted">-->
+<!--Введите адрес сайта-->
+<!--</p>-->
+
+<!--<p class="error-text" ng-show="form.site.$error.pattern && submitted">-->
+<!--Введите корректный адрес сайта-->
+<!--</p>-->
+
+<!--<p class="error-text" ng-show="form.password.$error.required && submitted">-->
+<!--Введите или сгенерируйте пароль-->
+<!--</p>-->
+
+<!--<p class="error-text" ng-show="form.password.$error.minlength && submitted">-->
+<!--Пароль должен быть длиннее 6 символов-->
+<!--</p>-->
+
+<!--<p class="error-text" ng-show="form.email.$error.mongoose">-->
+<!--{{ errors.email }}-->
+<!--</p>-->
+
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->
+  <!--</div>-->
+<!--</div>-->

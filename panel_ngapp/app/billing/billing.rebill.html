@@ -1,0 +1,69 @@
+<div class="container-fluid container-content">
+            <div class="row content-row">
+                <div class="col-xs-16 col-sm-16 col-md-16">
+                    <form>
+                        <ul class="list-group list-group-static list-group-paying">
+                            <li class="list-group-item">
+                                <h3>Оплата</h3>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="form-group-inline form-group-size-2">
+
+                                            <label>Срок подписки</label>
+                                            <div select select-options="periods" ng-model="period">
+                                            </div>
+                                            <div class="text text-gray">{{operatorPrice}} руб. за оператора в мес.</div>
+                                        </div>
+                                        <div class="form-group-inline form-group-size-1">
+                                            <label for="operators_count">Кол-во операторов <span
+                                                    class="ico __question" aria-hidden="true" data-tooltip="popover"
+                                                    data-placement="top" data-trigger="hover"
+                                                    data-original-content="Текст подсказки">?</span></label>
+                                            <input id="operators_count" type="number" class="form-control"
+                                                   ng-model="operators" min="0"/>
+                                        </div>
+                                        <div class="form-group-inline form-group-size-2">
+                                            <label for="sale_word">Купон на скидку</label>
+                                            <input id="sale_word" type="text" class="form-control" ng-model="promocode"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <p class="text text-gray text-middle">Период оплаты лицензии с {{ endCurrent | date:'dd.MM.yyyy'}} до {{ endDate | date:'dd.MM.yyyy'}}</p>
+                                <ul class="list list-unstyled-simple-small" ng-hide="currentBill.period == '0'||!currentBill">
+                                    <li>
+                                        <div class="checkbox checkbox-radio">
+                                            <input type="radio" id="extend-operators-count" name="param" value="false" ng-model="autoSwitch">
+                                            <label for="extend-operators-count">Расширить количество операторов для текущего периода <span class="ico __question" aria-hidden="true" data-tooltip="popover" data-placement="top" data-trigger="hover" data-content="Текст подсказки" data-original-title="" title="">?</span></label>
+                                        </div>
+                                        <ul class="list-offset-left">
+                                            <li>Текущее кол-во операторов: <strong>{{currentBill.operators}}</strong></li>
+                                            <li>Расширить до:
+                                                <strong>{{operators}}</strong></li>
+                                            <li>Сумма доплаты: <strong>{{additionMoney}}</strong></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox checkbox-radio">
+                                            <input type="radio" id="auto-switch" name="param" value="true" ng-model="autoSwitch" ng-checked="true">
+                                            <label for="auto-switch">Автоматическое переключение периодов <span class="ico __question" aria-hidden="true" data-tooltip="popover" data-placement="top" data-trigger="hover" data-content="Текст подсказки" data-original-title="" title="">?</span></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <ul class="list-unstyled list-unstyled-simple">
+                                    <li><span class="text-paying-title">Операторов:</span> <strong class="text text-middle text-bg-blind">{{operators}}</strong></li>
+                                    <li><span class="text-paying-title">Скидка:</span> <strong class="text text-middle text-bg-blind">{{discountPerc}}%</strong><span class="text-base" ng-show="discountSumm > 0">(-{{discountSumm}}руб.)</span></li>
+                                    <li><span class="text-paying-title">К оплате:</span> <strong class="text text-middle text-bg-yellow">{{finalCurrency}} рублей</strong> <span class="text-base" ng-show="promoDiscount > 0">(-{{promoDiscount}}руб.)</span></li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <button type="submit" class="btn btn-add" ng-disabled="!operators" ng-click="pay()"><span>Оплатить</span></button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>

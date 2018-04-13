@@ -1,0 +1,47 @@
+<!doctype html>
+  <head>
+    <meta charset="utf-8">
+    <title>Регидиум</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <script>
+        let IPC = require('electron').ipcRenderer;
+        let currentchat = null;
+        IPC.on('message',function(e,data){
+            console.log(data); 
+            currentchat = data;
+            let d = document.getElementById('msg');
+            d.innerHTML = '';
+            for (let i=0;i<currentchat.messages.length;i++){
+                let a = currentchat.messages[i];
+                let b = document.createElement('div');
+                b.innerText = a.text;
+                d.appendChild(b);
+            }       
+        });
+        function send(){
+            if (currentchat===null){ return; }
+            let text = document.getElementById('chat').value;
+                
+            IPC.send('chat', {
+                text : text,
+                id   : currentchat.webuserid,
+            });
+        }
+        function close_popup(){
+            IPC.send('close', {});
+        }
+        function open_main(){
+            IPC.send('open', {});
+        }
+    </script>
+  </head>
+  <body>
+    <div id="msg"></div>
+    <input id="chat" type="text">
+    <button onclick="send();">отправить</button>
+    <button onclick="open_main();">открыть основное окно</button>
+    <button onclick="close_popup();">закрыть</button>
+
+  </body>
+</html>

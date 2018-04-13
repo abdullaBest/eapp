@@ -1,0 +1,94 @@
+<div class="container-fluid container-content">
+    <div class="row">
+        <dmenu path="app.reports_"></dmenu>
+        <div class="col-xs-20 col-sm-20 col-md-20 col-wide-left">
+            <div class="page-header">
+                <h1 class="h1">Отчет: Автоматические действия</h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-24 col-sm-24 col-md-24" ng-show="getPaymentInfo().isFreeMode">
+                    <ul class="list-group list-group-static">
+                        <li class="list-group-item">
+                            <form>
+                                <div class="form-group form-group-operator wrap-flex-align-center">
+                                    <label>Период выборки</label>
+                                    <div class="select select-size-220 js-select">
+                                        <div select select-options="periods" ng-model="period"></div>
+                                    </div>
+                                    <div class="period hidden js-show-traget-source" id="period">
+                                        с
+                                        <input type="text" class="period__input js-date-input"/> по
+                                        <input type="text" class="period__input js-date-input"/>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="block block-map js-chat-map">
+                            </div>
+                            <ul class="list list-unstyled-simple-small">
+                                <li>
+                                    <div class="layer layer-status-color layer-status-color-success"></div>
+                                    Открытие виджета и отправка сообщения
+                                </li>
+                                <li>
+                                    <div class="layer layer-status-color layer-status-color-abort"></div>
+                                    Воспроизвидения звука
+                                </li>
+                                <li>
+                                    <div class="layer layer-status-color layer-status-color-all"></div>
+                                    Все
+                                </li>
+                            </ul>
+                            <div class="layer layer-overlay-info">
+                                <p class="text-normal">Функция недоступна в бесплатной версии.</p>
+                                <p>Подлючите полный тариф и получайте подробную статистику и множество других важных
+                                    функций.</p>
+                                <a class="btn btn-danger-custom btn-offset-top-30" ng-href="/billing"
+                                        type="button"><span>Активировать функции</span></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-24 col-sm-24 col-md-24" ng-show="!getPaymentInfo().isFreeMode">
+                    <ul class="list-group list-group-static">
+                        <li class="list-group-item">
+                            <form>
+                                <div class="form-group form-group-operator wrap-flex-align-center">
+                                    <label>Период выборки</label>
+                                    <div class="select select-size-220 js-select">
+                                        <div select select-options="periods" ng-model="period"></div>
+                                    </div>
+                                    <div drange ng-show="customPeriod.show" range="customPeriod"></div>
+                                </div>
+                            </form>
+                            <div class="block block-map js-chat-map" id="chat-report-chart">
+                                <div class="spinner" ng-show="loading"></div>
+                                <div ng-hide="loading"
+                                     line-chart
+                                     line-data=graphData
+                                     line-xkey='period'
+                                     line-ykeys='["value"]'
+                                     line-labels='["Сбор контактов"]'>
+                                </div>
+                            </div>
+                            <ul class="list list-unstyled-simple-small">
+                                <li>
+                                    <div class="layer layer-status-color layer-status-color-success"></div>
+                                    Открытие виджета и отправка сообщения
+                                </li>
+                                <li>
+                                    <div class="layer layer-status-color layer-status-color-abort"></div>
+                                    Воспроизведение звука
+                                </li>
+                                <li>
+                                    <div class="layer layer-status-color layer-status-color-all"></div>
+                                    Все
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

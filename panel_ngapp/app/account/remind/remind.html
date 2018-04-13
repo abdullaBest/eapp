@@ -1,0 +1,112 @@
+<div class="page__auth">
+    <header class="header header-auth">
+        <div class="container-fluid-auth">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <a href="/login"
+                       class="link __block"><img src="https://my.regidium.com/assets/i/regidium_logo.svg" alt="Regidium" width="180" height="45"/></a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <a ng-href="/login" class="btn btn-add btn-float-right"><span>Войти</span></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="content-auth">
+        <div class="container-fluid-auth">
+            <div class="row">
+                <div class="col-xs-24 col-sm-24 col-md-24">
+                    <div class="page-header page-header-auth">
+                        <h1 class="h1">Восстановить доступ</h1>
+                        <div class="page-header-text">к панели управления</div>
+                    </div>
+
+                    <ul class="list-group list-group-static list-group-auth-recovery" ng-show="sended">
+                        <li class="list-group-item">
+                            <div class="wrap wrap-recovery-complete">Письмо с новым паролем отправлено на эл. почту.</div>
+                        </li>
+                    </ul>
+
+                    <form class="js-custom-validate" submitted="submitted" name="form" ng-submit="remind(form)"
+                          ng-hide="sended">
+                        <ul class="list-group list-group-static list-group-auth">
+                            <li class="list-group-item">
+                                <div class="form-group form-group-auth">
+                                    <input ng-bind-html="email" class="form-control" placeholder="Введите эл. почту"
+                                           onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'Введите эл. почту'" type="email"
+                                           data-toggle="tooltip" data-trigger="focus" data-placement="right"
+                                           title="Введите электронную почту" data-required="1" ng-model="email">
+                                </div>
+                                <div class="form-group form-group-no-offset">
+                                    <div class="wrap wrap-flex-align-center wrap-flex-space-between wrap-form-submit">
+                                        <button type="submit" name="submit"
+                                                class="btn btn-add"><span>Восстановить</span></button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer footer-auth">
+        <div class="container-fluid-auth">
+            <div class="row">
+                <div class="col-xs-24 col-sm-24 col-md-24">
+                    <div class="text-center">© {{year}} Regidium, LLC</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+<!--<div class="auth-page">-->
+<!--<div class="auth-page-wrap">-->
+<!--<div class="z-bg"></div>-->
+<!--<div class="auth-page-content">-->
+
+<!--<header class="auth-panel top-panel clearfix">-->
+<!--<a href="/" class="start__logo"></a>-->
+
+<!--<div class="nav-btns">-->
+<!--<a href="/login" title="Войти на сайт" class="action-link a-link-yellow">Войти на сайт</a>-->
+<!--<div class="show-next-action" ng-show="sended"></div>-->
+<!--</div>-->
+<!--</header>-->
+<!--<div class="auth-content">-->
+<!--<div class="text">-->
+<!--<h1 class="page-title">Восстановить доступ к панели управления</h1>-->
+<!--<div class="page-intro-text">Не беспокойтесь! Просто введите свой адрес электронной почты, и мы вышлем вам войдите инструкции</div>-->
+<!--</div>-->
+<!--<div class="auth-form auth-form-restoring">-->
+<!--<div class="submit-messages"><div class="submit-success-text" ng-show="sended">Новый пароль отправлен на эл. почту</div></div>-->
+<!--<form id="restoring_pass_form" submitted="submitted" name="form" ng-submit="remind(form)" novalidate ng-hide="sended">-->
+<!--<div class="webform-field type-email">-->
+<!--<label class="form-label">Введите адрес эл. почты</label>-->
+<!--<input type="email" name="email" ng-model="email" id="user_email" class="form-input" autofocus required/>-->
+<!--</div>-->
+<!--<div class="webform-field type-actions clearfix">-->
+<!--<div class="submit-wrap"><input type="submit" name="submit" class="submit sub-left sub-yellow submit-anchor" value="Восстановить" /></div>-->
+<!--</div>-->
+<!--</form>-->
+<!--<div class="error-notification" ng-show="submitted && (form.email.$error.required || form.email.$error.email || errors.other)">-->
+<!--<p class="error-text" ng-show="form.email.$error.required && submitted">-->
+<!--Введите эл. почту-->
+<!--</p>-->
+
+<!--<p class="error-text" ng-show="form.email.$error.email && submitted">-->
+<!--Введите корректный адрес эл. почты-->
+<!--</p>-->
+
+<!--<p class="error-text">{{ errors.other }}</p>-->
+
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

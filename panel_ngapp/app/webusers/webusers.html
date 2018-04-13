@@ -1,0 +1,117 @@
+<div class="container-fluid container-content">
+    <div class="row">
+        <div class="col-xs-18 col-sm-18 col-md-18 ">
+            <!-- IF NO ACTIVE BILL -->
+            <div class="layer layer-overlay-info js-watch-height" ng-show="getPaymentInfo().isFreeMode">
+                <span class="ico __not-activated" aria-hidden="true"></span>
+                <h4 class="layer-overlay-info__title">Функция просмотра посетителей недоступна в бесплатной
+                    версии.</h4>
+                <p>Подключите полный тариф и просматривайте посетителей на вашем сайте.</p>
+                <a class="btn btn-default btn-offset-top-25" type="button" ng-href="/billing">
+                    <span>Активировать функции</span>
+                </a>
+            </div>
+            <div class="wrap wrap-tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#" aria-controls="online" role="tab" data-toggle="tab"
+                           ng-class="{active:tab=='online'}" ng-click="changeTab('online')" data-tab="u-logout">На сайте
+                            <span class="badge badge-simple" ng-show="counters.online > 0">{{counters.online}}</span>
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#" aria-controls="offline" role="tab" data-toggle="tab"
+                           ng-class="{active:tab=='offline'}" ng-click="changeTab('offline')" data-tab="u-logout">Покинули
+                            сайт <span class="badge badge-simple"
+                                       ng-show="counters.offline > 0">{{counters.offline}}</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!-- IF WEBUSERS LIST IS EMPTY -->
+                    <div role="tabpanel" class="tab-pane active"
+                         ng-hide="counters.online > 0 && tab == 'online' || counters.offline > 0 && tab == 'offline'">
+                        <div class="wrap wrap-visitors-empty">
+                            На вашем сайте сейчас нет ни одного посетителя.
+                        </div>
+                    </div>
+                    <!-- IF WEBUSERS LIST IS NOT EMPTY -->
+                    <div role="tabpanel" class="tab-pane active"
+                         ng-show="counters.online > 0 && tab == 'online' || counters.offline > 0 && tab == 'offline'">
+                        <div class="wrap wrap-operator-offset table-responsive js-scroll-content" mh-scrollbar>
+                            <table class="table table-custom-striped table-tabs table-visitors">
+                                <thead>
+                                <tr>
+                                    <th class="text text-operator-table-name">Посетитель:</th>
+                                    <th class="text text-operator-table-name">Оператор:</th>
+                                    <th class="text text-operator-table-time">На сайте:</th>
+                                    <th>Просматривается страница:</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="webuserrow" ng-repeat="webuser in userslist track by $index"
+                                    ng-class="{'active':selected._id==webuser._id,'action-extend':webuser.active && tab=='online', 'browser-off':!webuser.visible}"
+                                    ng-click="selectWebuser(webuser._id)" ng-dblclick="startChat(webuser._id)">
+                                    <td class="text text-operator-table-name">
+                                        <span class="indicator"
+                                              ng-class="{'indicator-online': webuser.online,'indicator-offline': !webuser.online}"></span>
+                                        <strong class="text text-table-visited-name" data-container="body"
+                                                data-placement="top" data-trigger="hover"
+                                                data-original-title="{{getWebUserName(webuser._id)}}"
+                                                data-toggle="tooltip">{{getWebUserName(webuser._id)}}</strong>
+                                    </td>
+                                    <td class="text text-visitor-table-name">
+                                        <!--<span class="indicator indicator-visitor-link"></span>-->
+                                        <div class="text text-operator-table-name"
+                                             data-container="body"
+                                             data-placement="top"
+                                             data-trigger="hover"
+                                             data-original-title="{{getOperatorName(webuser.bindedoperator)}}"
+                                             data-toggle="tooltip">
+                                            {{getOperatorName(webuser.bindedoperator)}}
+                                        </div>
+                                    </td>
+                                    <td class="text text-operator-table-time">
+                                                <span class="indicator indicator-visitor-time"
+                                                      data-container="body" data-placement="top"
+                                                      data-trigger="hover"
+                                                      data-original-title="Возвратов на сайт: {{webuser.returns}}"
+                                                      data-toggle="tooltip"
+                                                      ng-show="webuser.returns > 0"></span>
+                                        {{getWebUserTime(webuser._id)}} мин
+                                    </td>
+                                    <td>
+                                                <span class="link link-table-visited-link"
+                                                      data-container="body" data-placement="top"
+                                                      data-trigger="hover"
+                                                      data-original-title="{{webuser.title?webuser.title:webuser.url}}"
+                                                      data-toggle="tooltip">
+                                                    {{webuser.title?webuser.title:webuser.url}}</span>
+                                    </td>
+                                    <td>
+                                        <button ng-show="!webuser.chats && isMine(webuser)" type="button"
+                                                class="btn btn-default btn-tabs-operator"
+                                                ng-click="startChat(webuser._id)"><span class="ico __start-chat"
+                                                                                        aria-hidden="true"></span><span>Начать чат</span>
+                                        </button>
+                                        <button ng-show="webuser.chats && isMine(webuser)" type="button"
+                                                class="btn btn-default btn-tabs-operator"
+                                                ng-click="startChat(webuser._id)"><span
+                                                class="wrap wrap-image wrap-size-35"><img class="image"
+                                                                                          ng-src="{{getOperatorImage(webuser.bindedoperator)}}"
+                                        /></span><span>{{getOperatorName(webuser.bindedoperator)}}</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <webuserinfo ng-show="selected && !getPaymentInfo().isFreeMode" webuser="selected"></webuserinfo>
+    </div>
+</div>
+

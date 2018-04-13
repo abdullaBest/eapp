@@ -1,0 +1,257 @@
+<form class="modal fade modal-entrance multi-step in" id="entranceModal" tabindex="-1" role="dialog"
+      ng-controller="WinstallCtrl">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="entrance-steps">
+                    <ul class="entrance-steps__list step-1" data-step="1" style="display: flex;">
+                        <li class="entrance-steps__list-item active"></li>
+                        <li class="entrance-steps__list-item"></li>
+                        <li class="entrance-steps__list-item"></li>
+                    </ul>
+                    <ul class="entrance-steps__list step-2" data-step="2" style="display: none;">
+                        <li class="entrance-steps__list-item"></li>
+                        <li class="entrance-steps__list-item active"></li>
+                        <li class="entrance-steps__list-item"></li>
+                    </ul>
+                    <ul class="entrance-steps__list step-3" data-step="3" style="display: none;">
+                        <li class="entrance-steps__list-item"></li>
+                        <li class="entrance-steps__list-item"></li>
+                        <li class="entrance-steps__list-item active"></li>
+                    </ul>
+                    <div class="entrance-steps__position step-1" data-step="1" style="display: block;">Шаг 1 из 3-х
+                    </div>
+                    <div class="entrance-steps__position step-2" data-step="2" style="display: none;">Шаг 2 из 3-х</div>
+                    <div class="entrance-steps__position step-3" data-step="3" style="display: none;">Шаг 3 из 3-х</div>
+                </div>
+                <h4 class="modal-title step-1" data-step="1" style="display: block;">Установите код на ваш сайт</h4>
+                <h4 class="modal-title step-2" data-step="2" style="display: none;">Добавление операторов и сайтов</h4>
+                <h4 class="modal-title step-3" data-step="3" style="display: none;">Установка приложения и начало
+                    работы</h4>
+            </div>
+            <div class="modal-body step step-1" data-step="1" style="display: block;">
+                <span class="ico __entransce-step-1" aria-hidden="true"></span>
+                <p>Для того, чтобы принимать обращения клиентов с сайта, вам необходимо установить следующий код на
+                    каждую страницу вашего сайта перед закрывающимся тегом
+                    &lt;/body&gt;</p>
+                <div class="install-code">
+                    <div class="install-code__source js-scroll-content" mh-scrollbar>
+                        <code class="prettyprint prettyprinted" id="source-code"><span class="pln">&nbsp;</span><span
+                                class="com">&lt;!-- Regidium --&gt;</span><span class="pln"> </span><br><span
+                                class="pln">&nbsp;&nbsp;</span><span
+                                class="tag">&lt;script</span><span>&nbsp;</span><span class="atn">type</span><span>&nbsp;</span><span
+                                class="pun">=</span><span>&nbsp;</span><span
+                                class="atv">"text/javascript"</span><span class="tag">&gt;</span><span
+                                class="pln"></span><br><span class="pln">&nbsp;&nbsp;</span><span
+                                class="kwd">var</span><span class="pln">&nbsp;</span><span
+                                class="typ">RegidiumKey</span><span class="pln">&nbsp;</span><span
+                                class="pun">=</span><span
+                                class="pln">&nbsp;</span><span class="str">"{{key}}"</span><span
+                                class="pun">;</span><span
+                                class="pln"></span><br><span class="pln">&nbsp;&nbsp;</span><span
+                                class="kwd">var</span><span>&nbsp;</span><span
+                                class="pln">el</span><span>&nbsp;</span><span
+                                class="pun">=</span><span>&nbsp;</span><span class="pln">window</span><span class="pun">.</span><span
+                                class="pln">document</span><span class="pun">.</span><span
+                                class="pln">createElement</span><span class="pun">(</span><span
+                                class="str">"script"</span><span class="pun">);</span><span
+                                class="pln"> </span><br><span class="pln">&nbsp;&nbsp;el</span><span
+                                class="pun">.</span><span class="pln">type</span><span>&nbsp;</span><span class="pun">=</span><span
+                                class="pln">&nbsp;</span><span class="str">"text/javascript"</span><span class="pun">;</span><span
+                                class="pln"> </span><br><span class="pln"> &nbsp;&nbsp;el</span><span
+                                class="pun">.</span><span class="pln">charset</span><span>&nbsp;</span><span class="pun">=</span><span
+                                class="pln">&nbsp;</span><span class="str">"utf-8"</span><span class="pun">;</span><span
+                                class="pln"> </span><br><span class="pln"> &nbsp;&nbsp;el</span><span
+                                class="pun">.</span><span class="pln">src</span><span>&nbsp;</span><span class="pun">=</span><span
+                                class="pln">&nbsp;</span><span
+                                class="str">"https://static.regidium.com/widget.js"</span><span
+                                class="pun">;</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;el</span><span class="pun">.</span><span
+                                class="pln">async</span><span>&nbsp;</span><span class="pun">=</span><span class="pln">&nbsp;</span><span
+                                class="kwd">true</span><span class="pun">;</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;el</span><span class="pun">.</span><span
+                                class="pln">isLoaded</span><span>&nbsp;</span><span class="pun">=</span><span class="pln">&nbsp;</span><span
+                                class="kwd">false</span><span class="pun">;</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;el</span><span class="pun">.</span><span
+                                class="pln">onload</span><span>&nbsp;</span><span class="pun">=</span><span>&nbsp;</span><span class="pln">el</span><span
+                                class="pun">.</span><span class="pln">onreadystatechange</span><span>&nbsp;</span><span
+                                class="pun">=</span><span class="pln">&nbsp;</span><span class="kwd">function</span><span
+                                class="pun">()</span><span class="pln">&nbsp;</span><span class="pun">{</span><span
+                                class="pln"> </span><br><span class="pln"> &nbsp;&nbsp;</span><span
+                                class="kwd">if</span><span class="pln">&nbsp;</span><span class="pun">((</span><span
+                                class="pln">el</span><span class="pun">.</span><span class="pln">readyState</span><span>&nbsp;</span><span
+                                class="pun">&amp;&amp;</span><span>&nbsp;</span><span class="pln">el</span><span class="pun">.</span><span
+                                class="pln">readyState</span><span>&nbsp;</span><span class="pun">!=</span><span class="pln">&nbsp;</span><span
+                                class="str">"complete"</span><span class="pln">&nbsp;</span><span
+                                class="pun">&amp;&amp;</span><span>&nbsp;&nbsp;</span><span class="pln"> el</span><span class="pun">.</span><span
+                                class="pln">readyState</span><span>&nbsp;</span><span class="pun">!=</span><span class="pln">&nbsp;</span><span
+                                class="str">"loaded"</span><span class="pun">)</span><span class="pln">&nbsp;</span><span
+                                class="pun">||</span><span>&nbsp;</span><span class="pln">el</span><span class="pun">.</span><span
+                                class="pln">isLoaded</span><span class="pun">)</span><span class="pln">&nbsp;</span><span
+                                class="kwd">return</span><span class="pun">;</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;&nbsp;&nbsp;el</span><span class="pun">.</span><span
+                                class="pln">isLoaded</span><span>&nbsp;</span><span class="pun">=</span><span class="pln">&nbsp;</span><span
+                                class="kwd">true</span><span class="pun">;</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;</span><span class="pun">};</span><span
+                                class="pln"> </span><br><span class="pln"> &nbsp;&nbsp;window</span><span
+                                class="pun">.</span><span class="pln">document</span><span class="pun">.</span><span
+                                class="pln">getElementsByTagName</span><span class="pun">(</span><span class="str">"head"</span><span
+                                class="pun">)[</span><span class="lit">0</span><span class="pun">].</span><span
+                                class="pln">appendChild</span><span class="pun">(</span><span class="pln">el</span><span
+                                class="pun">);</span><span class="pln"> </span><br><span
+                                class="pln"> &nbsp;&nbsp;</span><span class="tag">&lt;/script&gt;</span><span
+                                class="pln"> </span><br><span class="pln"> </span><span class="com">&lt;!-- Regidium --&gt;</span><span
+                                class="pln"> </span><br><span class="pln"> </span>
+                        </code>
+                    </div>
+                </div>
+                <div class="install-code__actions">
+                    <button type="button" class="btn btn-default-lg" clip-copy="code"
+                            clip-click-fallback="fallback(code)"><span>Скопировать код</span></button>
+
+                    <a class="link __install-code"
+                       href="https://regidium.ru/sites/default/files/IMCE/manual_regidium.pdf" target="_blank">Инструкция
+                        по установке кода</a>
+                </div>
+            </div>
+            <div class="modal-body step step-2" data-step="2" style="display: none;">
+                <span class="ico __entransce-step-2" aria-hidden="true"></span>
+                <p><strong>Добавить оператора</strong><br>
+                    Для того, чтобы консультировать посетителей сайта, добавьте необходимое количество операторов,
+                    которые одновременно смогут работать.</p>
+                <ul class="nav nav-simple nav-stacked emailblock">
+                    <li>
+                        <div class="addoperator wrap-flex-space-between wrap-entrance-form-controls">
+                            <input type="email" name="email" class="email form-control" placeholder="Эл. почта"
+                                   ng-model="operatorMail" required>
+                            <input type="text" name="name" class="name form-control" placeholder="ФИО"
+                                   ng-model="operatorName" required>
+                            <button type="submit" class="btn btn-default" ng-click="addOperator()"><span>Добавить</span>
+                            </button>
+                        </div>
+                    </li>
+                    <li ng-repeat="email in emails">
+
+                        <a class="link __black" ng-href="mailto:{email}">{{email}}</a>
+                        <button type="button" class="close" aria-label="Close" ng-click="deleteEmail(email)"></button>
+
+                    </li>
+                </ul>
+                <hr class="entrance-hr">
+                <p><strong>Подключенные сайты</strong><br>
+                    Добавьте сайты, на которых будет работать онлайн консультант. <br>
+                    <strong>Важно</strong> только на указанных ниже сайтах будет загружаться виджет.
+                </p>
+                <ul class="nav nav-simple nav-stacked siteblock">
+                    <li>
+                        <div class="container-fluid">
+                            <div class="addsite row">
+                                <div class="col-xs-14 col-sm-14 col-md-14 col-wide-left">
+                                    <input type="site" name='site' class="site form-control"
+                                           placeholder="Введите адрес сайта" ng-model="site">
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-wide">
+                                    <button type="submit" class="btn btn-default" ng-click="addSite()">
+                                        <span>Добавить</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <p ng-repeat="site in sites">
+                            <a class="link __black" href="{site.url}">{{site.url}}</a>
+                            <button type="button" class="close" aria-label="Close" ng-click="deleteSite(site)"></button>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body step step-3" data-step="3" style="display: none;">
+                <span class="ico __entransce-step-3" aria-hidden="true"></span>
+                <p>Поздравляем, остался последний шаг. Для удобной работы вы можете установить приложение для ПК,
+                    мобильного устройства, либо использовать веб-интерфейс.</p>
+
+                <div class="wrap wrap-radio-list">
+                    <p><strong>Работайте через веб-браузер или десктоп приложение</strong></p>
+                    <ul class="list-radio-inline">
+                        <li>
+                            <div class="inline-radio">
+                                <a ng-href="http://update-app.regidium.com/win/{{linkForWinApp}}" class="inline-radio__label" target="_blank">
+                                    <span class="ico __windows" aria-hidden="true"></span>
+                                    <span>Скачать<br/> для Windows</span>
+                                </a>
+                            </div>
+                        </li>
+                        <!--<li>
+                            <div class="inline-radio">
+                                <input class="inline-radio__input" type="radio" name="install_type" id="type-macos">
+                                <label class="inline-radio__label" for="type-macos">
+                                    <span class="ico __macos" aria-hidden="true"></span>
+                                    <span>Скачать<br> для Mac OS</span>
+                                </label>
+                            </div>
+                        </li>-->
+                        <li>
+                            <div class="inline-radio">
+                                <input class="inline-radio__input" type="radio" name="install_type" id="type-web">
+                                <label class="inline-radio__label" for="type-web" ng-click="closeModal('#entranceModal')">
+                                    <span class="ico __web" aria-hidden="true"></span>
+                                    <span>Веб версия</span>
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--<div class="wrap wrap-radio-list">
+                    <p><strong>Работайте со смартфона и планшета</strong><br>
+                        Платная версия чата делает Вас маневреннее и оперативнее. Работайте со смартфонов и планшетов на iOS и Android, и получайте уведомления о новых сообщениях в Телеграме.
+                    </p>
+                    <ul class="list-radio-inline">
+                       <li>
+                           <div class="inline-radio">
+                               <input class="inline-radio__input" type="radio" name="install_type" id="type-android">
+                               <label class="inline-radio__label" for="type-android">
+                                   <span class="ico __android" aria-hidden="true"></span>
+                                   <span>Скачать<br> для Android</span>
+                               </label>
+                           </div>
+                       </li>
+                       <li>
+                           <div class="inline-radio">
+                               <input class="inline-radio__input" type="radio" name="install_type" id="type-ios">
+                               <label class="inline-radio__label" for="type-ios">
+                                   <span class="ico __ios" aria-hidden="true"></span>
+                                   <span>Скачать<br> для IOS</span>
+                               </label>
+                           </div>
+                       </li>
+                       <li>
+                           <div class="inline-radio">
+                               <input class="inline-radio__input" type="radio" name="install_type" id="type-telegram">
+                               <label class="inline-radio__label" for="type-telegram">
+                                   <span class="ico __telegram" aria-hidden="true"></span>
+                                   <span>Подключить<br>Telegram</span>
+                               </label>
+                           </div>
+                       </li>
+                   </ul>
+                </div>-->
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-add step step-1" data-step="1"
+                    ng-click="sendEvent('#entranceModal', 1, 2)" style="display: inline-block;"><span>Далее</span>
+            </button>
+            <button type="button" class="btn btn-default step step-2" data-step="2"
+                    ng-click="sendEvent('#entranceModal', 2, 1)" style="display: none;"><span>Назад</span></button>
+            <button type="button" class="btn btn-add step step-2" data-step="2"
+                    ng-click="sendEvent('#entranceModal', 2, 3)" style="display: none;"><span>Далее</span></button>
+            <button type="button" class="btn btn-default step step-3" data-step="3"
+                    ng-click="sendEvent('#entranceModal', 3, 2)" style="display: none;"><span>Назад</span></button>
+            <button type="button" class="btn btn-add step step-3" data-step="3" style="display: none;"
+                    ng-click="closeModal('#entranceModal')"><span>Готово</span></button>
+        </div>
+    </div>
+    </div>
+</form>

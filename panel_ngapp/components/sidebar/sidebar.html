@@ -1,0 +1,20 @@
+<aside class="page__left-sidebar" ng-controller="SidebarCtrl">
+    <nav class="navigation" role="navigation">
+        <ul class="sidebar-menu">
+            <li class="sidebar-menu__item">
+                <a class="link __sidebar-menu __default" href="/">
+                    <img class="image __block" src="https://my.regidium.com/assets/i/logo.png" width="50" height="50" />
+                </a>
+            </li>
+            <li class="sidebar-menu__item" ng-repeat="item in visibleItems" >
+                <a class="link __sidebar-menu" ng-href="{{item.url}}" ng-class="{__active: isActive(item.url)}">
+                    <span class="wrap wrap-menu-ico">
+                        <span ng-class="item.itemClass" aria-hidden="true"></span>
+                        <span ng-show="item.notify.counter>0" class="badge badge-warning">{{item.notify.counter}}</span>
+                    </span>
+                    {{item.title}}
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>

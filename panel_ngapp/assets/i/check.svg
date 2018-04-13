@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" x="0px" y="0px" width="null" height="null" viewBox="0 0 32 32" style="null" class="icon icons8-Checkmark" >
+<style>
+
+  path {
+        animation: stroke .3s cubic-bezier(0.650, 0.000, 0.450, 1.000) 0s forwards;
+  }
+
+  @keyframes stroke {
+    0% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+  }
+</style> 
+<path class="path" style="text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Bitstream Vera Sans" d="M 28.28125 6.28125 L 11 23.5625 L 3.71875 16.28125 L 2.28125 17.71875 L 10.28125 25.71875 L 11 26.40625 L 11.71875 25.71875 L 29.71875 7.71875 L 28.28125 6.28125 z" fill="#2cc64e" overflow="visible" font-family="Bitstream Vera Sans"></path>
+</svg>

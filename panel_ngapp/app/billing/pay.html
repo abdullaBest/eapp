@@ -1,0 +1,157 @@
+<div class="container-fluid container-content">
+    <div class="row content-row">
+        <div class="col-xs-16 col-sm-16 col-md-16">
+            <form>
+                <ul class="list-group list-group-static list-group-paying">
+                    <li class="list-group-item">
+                        <h3>Оплата</h3>
+                        <p class="text">Ваш заказ: <strong>лицензия на {{bill.months}} {{wordMonth}} и
+                            {{bill.operators}} {{wordOperator}}</strong></p>
+                        <div class="text">К оплате: <strong class="text text-middle">{{bill.summ}}
+                            рублей</strong></div>
+                    </li>
+                    <li class="list-group-item" ng-show="billaccount.name && billaccount.address">
+                        <h3>Данные плательщика</h3>
+                        <div class="text text-small">ФИО: <strong>{{billaccount.name}}</strong>, адрес
+                            регистрации: <strong>{{billaccount.address}}</strong>, ИНН:
+                            <strong>{{billaccount.inn}}</strong>
+                            <button type="button" class="btn btn-tool btn-offset-left" data-toggle="modal"
+                                    ng-click="openModal()"><span class="ico __edit" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h3>Выбрать способ оплаты</h3>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-wide">
+                                    <p class="text text-gray">Для физических лиц</p>
+                                    <ul class="list-unstyled-simple">
+                                        <li>
+                                            <button class="btn btn-pay" type="button"
+                                                    ng-click="openConfirmModal('FCC')"><span class="ico __bank-card"
+                                                                                             aria-hidden="true"></span><span>Банковская карта</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="btn btn-pay" type="button"
+                                                    ng-click="openConfirmModal('WAR')"><span class="ico __bank-yandex"
+                                                                                             aria-hidden="true"></span><span>Яндекс.Деньги</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="btn btn-pay" type="button"
+                                                    ng-click="openConfirmModal('QUE')"><span class="ico __bank-sberbank"
+                                                                                             aria-hidden="true"></span><span>Сбербанк.Онлайн</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="btn btn-pay" type="button"
+                                                    ng-click="openConfirmModal('FABOL')"><span class="ico __bank-alpha"
+                                                                                               aria-hidden="true"></span><span>Альфа-клик</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="btn btn-pay" type="button"
+                                                    ng-click="openConfirmModal('FINV')"><span class="ico __bank-ticket"
+                                                                                              aria-hidden="true"></span><span>Банковская квитанция</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-wide">
+                                    <p class="text text-gray">Для юридических лиц</p>
+                                    <ul class="list-unstyled-simple">
+                                        <li>
+                                            <button class="btn btn-pay" type="button"
+                                                    ng-click="openConfirmModal('UINV')"><span class="ico __bank-bill"
+                                                                                              aria-hidden="true"></span><span>Распечатать счет</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="btn btn-pay" type="button"
+                                                    ng-click="openConfirmModal('UCC')"><span class="ico __bank-card"
+                                                                                             aria-hidden="true"></span><span>Банковская карта</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--- modals -->
+<div class="modal fade modal-user-info" id="payerInfo" tabindex="-1" role="dialog" aria-labelledby="payerInfo">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close close-big" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title" id="lawyerLabel">Ведите свои данные</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-group-modal">
+                    <label for="company-name">{{placeHolderName}}</label>
+                    <input id="company-name" required type="text" class="form-control" placeholder="{{placeHolderName}}"
+                           ng-model="billaccount.name"/>
+                </div>
+                <div class="form-group form-group-modal" ng-show="payType == 'UINV' || payType == 'UCC'">
+                    <label for="inn">ИНН</label>
+                    <input id="inn" type="text" required class="form-control" placeholder="Введите ИНН"
+                           ng-model="billaccount.inn"/>
+                </div>
+                <div class="form-group form-group-modal">
+                    <label for="lawyer_address">{{placeHolderAdress}}</label>
+                    <input id="lawyer_address" required type="text" class="form-control"
+                           placeholder="{{placeHolderAdress}}"
+                           ng-model="billaccount.address"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-add" ng-click="saveBillAccount()"><span>Перейти к оплате</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-user-info modal-action-confirm" id="warningModal" tabindex="-1" role="dialog"
+     aria-labelledby="warningModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="warningModalLabel">Вы подтверждаете метод оплаты {{payMethod}}?</h4>
+            </div>
+            <div class="modal-body">
+                <span class="ico __sign" aria-hidden="true">!</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-add" ng-click="closeConfirmModal(); pay(pay__type)"><span>Да</span></button>
+                <button type="button" class="btn btn-default" ng-click="closeConfirmModal()"><span>Нет</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--////////////////////////////////////////////////////////////////////////////-->
+
+<form action="https://demomoney.yandex.ru/eshop.xml" method="post" style="display: none" id="kassa_payment">
+
+    <!-- Обязательные поля -->
+    <input name="shopId" value="114375" type="hidden"/>
+    <input name="scid" value="531836" type="hidden"/>
+    <input name="sum" value="{{bill.summ}}" type="hidden">
+    <input name="customerNumber" value="{{bill.customer}}" type="hidden"/>
+
+    <!-- Необязательные поля -->
+    <!--<input name="shopArticleId" value="567890" type="hidden"/>-->
+    <input name="paymentType" value="{{yc[payType]}}" id="kassa_payment_type" type="hidden"/>
+    <input name="orderNumber" value="{{bill.numb}}" type="hidden"/>
+    <!--<input name="cps_phone" value="79110000000" type="hidden"/>-->
+    <!--<input name="cps_email" value="user@domain.com" type="hidden"/>-->
+
+    <input type="submit" value="Заплатить"/>
+</form>

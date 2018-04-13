@@ -1,0 +1,80 @@
+<div class="container-fluid container-content">
+    <div class="row">
+        <dmenu path="app.settings_"></dmenu>
+        <div class="col-xs-20 col-sm-20 col-md-20 col-wide-left">
+            <div class="page-header">
+                <h1 class="h1">Общение</h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-18 col-sm-18 col-md-18">
+                    <form>
+                        <ul class="list-group list-group-static">
+                            <li class="list-group-item">
+                                <h3>Общие настройки</h3>
+                                <ul class="list-group list-group-settings">
+                                    <li class="list-group-item">
+                                        <div class="checkbox checkbox-settings">
+                                            <input type="checkbox" id="settings-1"
+                                                   ng-model="settingsCustomer.allusers"/>
+                                            <label for="settings-1">Показывать посетителей, прикрепленных к другим операторам</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <h3>Электронная почта</h3>
+                                <ul class="list-group list-group-settings">
+                                    <li class="list-group-item">
+                                        <div class="checkbox checkbox-settings">
+                                            <input type="checkbox" id="settings-2" ng-model="settingsCustomer.send_email_copy" />
+                                            <label for="settings-2">Отправлять копию переписки на почту посетителя
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="checkbox checkbox-settings">
+                                            <input type="checkbox" id="settings-3" ng-model="settingsCustomer.send_email_copy_operator" />
+                                            <label for="settings-3">Отправлять копию переписки на почту оператора
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="checkbox checkbox-settings">
+                                            <input type="checkbox" id="settings-4"
+                                                   ng-model="settingsCustomer.send_response_to_webuser" />
+                                            <label for="settings-4">Отправлять ответы на почту посетителя, покинувшего сайт, не дождавшись ответа</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="checkbox checkbox-settings">
+                                            <input type="checkbox" id="settings-5" ng-model="settingsCustomer.send_operators_offline" />
+                                            <label class="js-set-disabled" data-for="send-message-condition" for="settings-5">Отправлять сообщения посетителя на почту, если в
+                                                сети нет операторов</label>
+                                        </div>
+                                        <ul id="send-message-condition" class="nav nav-simple nav-stacked" ng-class="{disabled: !settingsCustomer.send_operators_offline}">
+                                            <li ng-repeat="email in settingsCustomer.notify_email">
+                                                <a class="link __black" ng-href="mailto:{email.url}">{{email.url}}</a>
+                                                <button type="button" class="close" aria-label="Close" ng-click="delete(email)"></button>
+                                            </li>
+                                            <li class="double-margin-top">
+                                                <div class="form-group form-group-single-inline">
+                                                    <input class="form-control form-control-size-6 email" type="text"
+                                                           placeholder="Введите e-mail" ng-model="newEmail" ng-disabled="!settingsCustomer.send_operators_offline">
+                                                    <p class="error-text site">Введите корректный емейл</p>
+                                                </div>
+                                                    <button type="submit" class="btn btn-add" ng-click="addEmail()">
+                                                        <span>Добавить</span></button>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <button class="btn btn-success-save" type="button" ng-disabled="noChange" ng-click="save()"><span>Сохранить изменения</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

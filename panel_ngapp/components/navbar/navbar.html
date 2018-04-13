@@ -1,0 +1,76 @@
+<header class="page__header" ng-controller="NavbarCtrl">
+    <div class="page__header-inner">
+        <div class="page__header-item __info">
+            <div class="notification" data-action="notification">
+                <button type="button" class="btn btn-tool" data-dismiss="alert" aria-label="Close" ng-click="closeNot()"><span
+                        class="ico __tool-close" aria-hidden="true"></span></button>
+                <h4 class="notification-title"></h4>
+                <div class="notification-body"><strong></strong></div>
+            </div>
+        </div>
+
+        <div class="page__header-item __first code" ng-if="currentUser.isadmin && !isWidget() && showBtns.siteCode">
+            <a class="label label-static" ng-click="getModalOpened('#installCodeModal')">
+                <span class="ico __code" aria-hidden="true"></span> Код для сайта
+                <button type="button" class="close close-small" aria-label="Close" ng-click="hideElement($event, '.code')"></button>
+            </a>
+        </div>
+
+        <div class="page__header-item __first __with-close app" data-container="body" data-placement="bottom" data-trigger="hover" data-html="true" data-original-title="Установите приложение для ПК.<br/>Доступны приложения для Windows и Mac OS." data-toggle="tooltip" ng-show="showBtns.appBtn">
+
+            <a class="btn btn-success-add btn-with-ico btn-app" ng-click="getModalOpened('#installAppModal')">
+                               <span class="btn__inner">
+                                  <span class="ico __opened-box" aria-hidden="true"></span> <span>Приложение</span>
+                               </span>
+                <button type="button" class="close close-small" aria-label="Close" ng-click="hideElement($event, '.app')"></button>
+            </a>
+        </div>
+        <div class="page__header-item __first" ng-if="currentUser.isadmin">
+            <a class="btn btn-with-ico license-btn" ng-href="/billing" ng-class="{'btn-success-lg': !isBilling(), 'btn-default-lg': isBilling()}">
+                <span class="ico " ng-class="{'__star-check': !isBilling(), '__star-check-outline': isBilling()}" aria-hidden="true"></span> <span>Тариф</span>
+            </a>
+            <span class="text-static license-text"><span ng-hide="!currentBill">до: </span><span class="text-value" ng-show="!currentBill">Период истек</span> <span class="text-value">{{licenseEndDate | date:'dd.MM.yyyy'}}</span></span>
+        </div>
+        <div class="page__header-item" ng-if="currentUser.isadmin">
+            <div class="text-static" ng-hide="!currentBill">Операторов: <span class="text-value">{{operatorsNum}}</span></div>
+        </div>
+        <div class="page__header-item">
+            <div class="switch">
+                <input id="switch-input" type="checkbox" ng-checked="currentUser.selectedOnlineMode" class="switch-input" ng-model="currentUser.selectedOnlineMode" ng-click="presence(currentUser.selectedOnlineMode)" />
+                <label for="switch-input" class="switch-label"></label>
+            </div>
+        </div>
+        <div class="page__header-item">
+
+            <div class="dropdown dropdown-top-menu" ng-click="toggleUserMenu($event);">
+                <button class="btn btn-void btn-top-menu dropdown-toggle" type="button" id="dropdownTopMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="btn__inner">
+                                        <span class="wrap wrap-image wrap-size-55"><img  class="image" ng-src="{{currentUser.image}}" alt="{{currentUser.name}}" /></span>
+                                        <span class="badge badge-warning" ng-if="unreaded.counter > 0">{{unreaded.counter}}</span>
+                                        <span class="wrap wrap-profile-email">{{currentUser.email}}</span>
+                                        <span class="caret caret-static"></span>
+                                    </span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-extend-profile" aria-labelledby="dropdownTopMenu">
+                    <li class="dropdown-header">
+
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-menu__messages"><a ng-href="/dialogs">Сообщения <span class="badge badge-simple" ng-if="unreaded.counter > 0">{{unreaded.counter}}</span></a></li>
+                    <li class="dropdown-menu__profile"><a ng-href="/operators#my">Профиль</a></li>
+                    <li class="dropdown-menu__settings"><a ng-href="/settings/widget">Настройки</a></li>
+                    <li class="dropdown-menu__tariff"><a ng-href="/billing">Тариф</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" ng-click="logout()">Выйти</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="page__header-info" ng-show="payAlarm.show" ng-controller="PayAlarmCtrl">
+        <div class="alert alert-danger-custom">
+            <span class="ico __warning" aria-hidden="true"></span> {{payAlarm.text}}
+            <a class="btn btn-danger-custom-rect" type="button" ng-href="/billing"><span>Активировать функции</span>
+            </a>
+        </div>
+    </div>
+</header>

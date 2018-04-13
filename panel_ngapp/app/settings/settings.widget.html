@@ -1,0 +1,385 @@
+<div class="container-fluid container-content">
+    <div class="row">
+        <dmenu path="app.settings_"></dmenu>
+        <div class="col-xs-20 col-sm-20 col-md-20 col-wide-left">
+            <div class="page-header">
+                <h1 class="h1">Настройка виджета</h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-14 col-sm-14 col-md-14">
+                    <form>
+                        <ul class="list-group list-group-static list-group-widget-options">
+                            <li class="list-group-item">
+                                <h3>Внешний вид</h3>
+                                <ul class="list-unstyled-simple">
+                                    <li>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-wide-left">
+                                                    <div class="form-group form-group-modal form-group-no-offset">
+                                                        <label>Шрифт</label>
+                                                        <div select select-label="" select-options="fonts" ng-model="settings.font"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-wide-right">
+                                                    <div class="form-group form-group-modal form-group-no-offset">
+                                                        <label>Язык интерфейса</label>
+                                                        <div select select-label="" select-options="lang" ng-model="settings.lang"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-wide-left">
+                                                    <div class="form-group form-group-modal form-group-no-offset"
+                                                         colpick colpick-label="Цвет текста заголовка ярлыка"
+                                                         colpick-model="settings.title_color" ng-model="settings.die_color">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-wide-right">
+                                                    <div class="form-group form-group-modal form-group-no-offset" colpick colpick-label="Цвет ярлыка" colpick-model="settings.die_bg" ng-model="settings.die_bg">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-wide-left">
+                                                    <div class="form-group form-group-modal form-group-no-offset">
+                                                        <label>Расположение</label>
+                                                        <div select select-label="" select-options="position"
+                                                             ng-model="settings.position"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-wide-right">
+                                                    <div class="form-group form-group-modal form-group-no-offset">
+                                                        <label>Прозрачность</label>
+                                                        <slider min='0' max='100' step='1' slider-tooltip='hide' ng-model="settings.opacity"></slider>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <h3>Текст ярлыка</h3>
+                                <div class="form-group form-group-modal">
+                                    <label for="operator-online">Когда в сети есть оператор</label>
+                                    <input class="form-control" type="text" id="operator-online" placeholder="Введите текст" ng-model="settings.title" />
+                                </div>
+                                <div class="form-group form-group-modal form-group-no-offset">
+                                    <label for="operator-offline">Когда в сети нет операторов</label>
+                                    <input class="form-control" type="text" id="operator-offline" placeholder="Введите текст" ng-model="settings.offline_title" />
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <h3>Подключенные сайты</h3>
+                                <ul class="nav nav-simple nav-stacked">
+                                    <li ng-repeat="site in sites" style="max-width: 90%">
+                                        <a class="link __black" ng-href="{site.url}" style="max-width: inherit; overflow: hidden; text-overflow: ellipsis">{{site.url}}</a>
+                                        <button type="button" class="close" aria-label="Close" ng-click="delete(site)"></button>
+                                    </li>
+                                    <li>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-xs-18 col-sm-18 col-md-18 col-wide-left">
+                                                    <input type="site" class="form-control site" placeholder="Введите адрес сайта" ng-model="newSite">
+                                                    <p class="error-text site">Введите корректный адрес сайта</p>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-wide">
+                                                    <button type="submit" class="btn btn-add" ng-click="addSite()">
+                                                        <span>Добавить</span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <h3>Дополнительно</h3>
+                                <!--<div class="text text-row">-->
+                                    <!--<div class="switch switch-no-margin-left">-->
+                                        <!--<input id="hide-widget" type="checkbox" class="switch-input" ng-model="settings.offline" />-->
+                                        <!--<label for="hide-widget" class="switch-label"></label>-->
+                                    <!--</div>-->
+                                    <!--Скрыть виджет на сайте, когда в сети нет операторов-->
+                                <!--</div>-->
+                                <div class="text text-row">
+                                    <div class="switch switch-no-margin-left">
+                                        <input id="hide-logo" type="checkbox" class="switch-input" ng-model="settings.hidelogo" />
+                                        <label for="hide-logo" class="switch-label"></label>
+                                    </div>
+                                    Скрыть логотип Регидиума
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="btn btn-success-save" ng-disabled="noChange" type="button" ng-click="save()"><span>Сохранить изменения</span>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-wide-left">
+                    <div class="layer layer-widget">
+                        <div class="layer-header" ng-class="{'layer-set': widgetInstalled, 'layer-unset': !widgetInstalled}">
+                            <span ng-show="widgetInstalled">Виджет установлен</span>
+                            <span ng-hide="widgetInstalled">Виджет неустановлен</span>
+                            <a class="label label-static label-static-widget" href="#" ng-click="getCode()">
+                                <span class="ico __code" aria-hidden="true"></span> получить код
+                            </a>
+                        </div>
+                        <div class="layer-body">
+                            <!-- window -->
+                            <div class="rw-widget-window rw-window" ng-style="{'opacity':settings.opacity/100}">
+                                <header class="rw-window__header">
+                                    <span class="rw-window__close js-close-widget" title="Свернуть">__</span>
+                                    <div class="rw-window__operator-name"><strong>Анна Тимофеева</strong>
+                                    </div>
+                                    <div class="rw-window__operator-post">В сети <span class="indicator indicator-online" aria-hidden="true"></span></div>
+                                </header>
+                                <div class="rw-window__body js-rw-body">
+                                    <div class="rw-window__messages rw-messages">
+                                        <div class="rw-messages__list js-scroll-content">
+                                            <div class="rw-messages__list-inner js-message-list">
+                                                <div class="rw-messages__group m--message">
+                                                    <div class="rw-messages__message m--load rw-message">
+                                                        <div class="rw-message__avatar">
+                                                        </div>
+                                                        <div class="rw-message__content">
+                                                            <div class="rw-message__title">
+                                                            </div>
+                                                            <div class="rw-message__row"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rw-messages__group m--date">
+                                                    <time class="rw-messages__date" datetime="2015-10-30 00:00:00">30 Nov 2015
+                                                    </time>
+                                                </div>
+                                                <div class="rw-messages__group m--message">
+                                                    <div class="rw-messages__message m--operator rw-message">
+                                                        <div class="rw-message__avatar">
+                                                            <img class="rw-message__avatar-image"
+                                                                 src="https://my.regidium.com/assets/files/operator-photo.png"
+                                                                 width="35"
+                                                                />
+                                                        </div>
+                                                        <div class="rw-message__content">
+                                                            <div class="rw-message__title">
+                                                                <div class="rw-message__name">Анна Тимофеева
+                                                                </div>
+                                                                <div class="rw-message__time">1:25</div>
+                                                            </div>
+                                                            <div class="rw-message__row">Добрый день, Петр!
+                                                            </div>
+                                                            <div class="rw-message__row">Требуется онлайн-консультант для сайта?
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rw-messages__group m--message">
+                                                    <div class="rw-messages__message rw-message m--user">
+                                                        <div class="rw-message__avatar"></div>
+                                                        <div class="rw-message__content">
+                                                            <div class="rw-message__title">
+                                                                <div class="rw-message__name m--user">Вы
+                                                                </div>
+                                                                <div class="rw-message__time">1:27</div>
+                                                            </div>
+                                                            <div class="rw-message__row">Да, нам нужен онлайн-консудьтант. Сколько это будет стоить?
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rw-messages__group m--message">
+                                                    <div class="rw-messages__message m--operator rw-message">
+                                                        <div class="rw-message__avatar">
+                                                            <img class="rw-message__avatar-image"
+                                                                 src="https://my.regidium.com/assets/files/operator-photo.png"
+                                                                 width="35"
+                                                                 />
+                                                        </div>
+                                                        <div class="rw-message__content">
+                                                            <div class="rw-message__title">
+                                                                <div class="rw-message__name">Анна Тимофеева
+                                                                </div>
+                                                                <div class="rw-message__time">1:25</div>
+                                                            </div>
+                                                            <div class="rw-message__row">Сейчас действует акция на 12 месяцев - бесплатно! Получите промо-код.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rw-messages__group m--new-message">
+                                                    <div class="rw-messages__group-title m--new-message">
+                                                        Новые сообщения
+                                                    </div>
+                                                </div>
+                                                <div class="rw-messages__group m--message">
+                                                    <div class="rw-messages__message m--operator rw-message">
+                                                        <div class="rw-message__avatar">
+                                                            <img class="rw-message__avatar-image"
+                                                                 src="https://my.regidium.com/assets/files/operator-photo.png"
+                                                                 width="35"
+                                                                 />
+                                                        </div>
+                                                        <div class="rw-message__content">
+                                                            <div class="rw-message__title">
+                                                                <div class="rw-message__name">Анна Тимофеева
+                                                                </div>
+                                                                <div class="rw-message__time">1:25</div>
+                                                            </div>
+                                                            <div class="rw-message__row">Сейчас действует акция на 12 месяцев - бесплатно! Получите промо-код.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rw-messages__group m--message">
+                                                    <div class="rw-messages__message rw-message m--user">
+                                                        <div class="rw-message__avatar"></div>
+                                                        <div class="rw-message__content">
+                                                            <div class="rw-message__title">
+                                                                <div class="rw-message__name m--user">Вы
+                                                                </div>
+                                                                <div class="rw-message__time">1:27</div>
+                                                            </div>
+                                                            <div class="rw-message__row">
+                                                                <div class="rw-message__frame"></div>
+                                                            </div>
+                                                            <div class="rw-message__row">Да, нам нужен онлайн-консудьтант. Сколько это будет стоить?
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rw-messages__group m--message">
+                                                    <div class="rw-messages__message rw-message m--operator">
+                                                        <div class="rw-message__content">
+                                                            <div class="rw-message__row m--status">
+                                                                Оператор покинул чат
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rw-messages__group m--message">
+                                                    <div class="rw-messages__message rw-message m--operator">
+                                                        <div class="rw-message__content">
+                                                            <div class="rw-message__row m--status">
+                                                                Оператор подключился к чату
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rw-messages__group m--message">
+                                                    <div class="rw-messages__message m--operator rw-message">
+                                                        <div class="rw-message__avatar">
+                                                            <img class="rw-message__avatar-image" src="https://my.regidium.com/assets/files/operator-photo.png" width="35"/>
+                                                        </div>
+                                                        <div class="rw-message__content">
+                                                            <div class="rw-message__title">
+                                                                <div class="rw-message__name">Анна Тимофеева
+                                                                </div>
+                                                                <div class="rw-message__time">1:25</div>
+                                                            </div>
+                                                            <div class="rw-message__row">
+                                                                Сейчас действует акция на 12 месяцев - бесплатно! Получите промо-код.
+                                                                <div class="rw-message__frame">
+                                                                    <div class="rw-message__frame-file">
+                                                                        <img class="rw-message__frame-image"
+                                                                             src="https://my.regidium.com/assets/files/photo.jpg"
+                                                                             />
+                                                                    </div>
+                                                                    <div class="rw-message-toolbar">
+                                                                        <div class="rw-message-toolbar__status">
+                                                                            <div class="rw-message-progress__count">
+                                                                                33.36KB из 64.6KB
+                                                                            </div>
+                                                                            <div class="rw-message-progress__percent">
+                                                                                66%
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rw-message-toolbar__progress">
+                                                                            <div class="rw-message-progress__line">
+                                                                                <div class="rw-message-progress__current" style="width: 66%;"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="rw-message__status m--read">
+                                                                    Сообщение прочитано
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <footer class="rw-window__footer js-rw-footer">
+                                    <div class="rw-messages__actions">
+                                        <div class="rw-messages__action m--operator-writing">
+                                            <span class="ico m--pencil m--animate"></span>
+                                            <span class="rw-messages__action-text">Оператор Анна набирает сообщение ...</span>
+                                        </div>
+                                    </div>
+                                    <form class="rw-window__form rw-form js-type-message-form" method="post">
+                                        <div class="rw-form__field m--message">
+                                            <textarea class="rw-form__message-area" name="message" placeholder="Написать сообщение"></textarea>
+                                        </div>
+                                        <div class="rw-form__field m--file">
+                                            <input class="rw-form__file" type="file" name="file" id="rw-upload-file" />
+                                            <label class="rw-form__label-file" for="rw-upload-file" title="Загрузить файлы"></label>
+                                        </div>
+                                    </form>
+                                    <div class="rw-window__creator">
+                                        Чат предоставлен
+                                        <a class="rw-window__creator-link" href="https://regidium.ru/promo/?utm_domain=domain&utm_source=wiget&utm_content=bottom-logo" target="_blank"><img class="rw-window__creator-image" src="https://my.regidium.com/assets/i/regidium.svg"/></a>
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                        <!-- label -->
+                        <div class="layer-label">
+                            <div class="layer-label-title">В сети <span class="indicator indicator-online" aria-hidden="true"></span></div>
+                            <!-- label -->
+                            <div class="rw-widget-label">
+                                <div class="rw-widget-description" ng-style="{background: settings.die_bg, 'border-color': settings.die_bg}">
+                                    <div class="rw-widget-notify" ng-style="{color: settings.die_color}">{{settings.title}}</div>
+                                </div>
+                                <div class="rw-widget-operator">
+                                    <div class="rw-widget-operator__face ">
+                                    </div>
+                                    <div class="rw-widget-operator__status">
+                                        <div class="rw-widget-spinner m--online"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- -->
+                        </div>
+                        <div class="layer-label">
+                            <div class="layer-label-title">Не в сети <span class="indicator indicator-offline" aria-hidden="true"></span></div>
+                            <!-- label -->
+                            <div class="rw-widget-label">
+                                <div class="rw-widget-description" ng-style="{background: settings.die_bg, 'border-color': settings.die_bg}">
+                                    <div class="rw-widget-notify" ng-style="{color: settings.die_color}">{{settings.offline_title}}</div>
+                                </div>
+                                <div class="rw-widget-operator">
+                                    <div class="rw-widget-operator__face ">
+                                    </div>
+                                    <div class="rw-widget-operator__status">
+                                        <div class="rw-widget-spinner m--online"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
